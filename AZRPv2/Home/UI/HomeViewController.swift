@@ -10,9 +10,11 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    var viewModel: HomeViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .blue
+        viewModel.lol()
         // Do any additional setup after loading the view.
     }
 

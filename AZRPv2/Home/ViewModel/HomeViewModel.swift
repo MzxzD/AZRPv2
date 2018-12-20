@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class HomeViewModel {
+    
+    
+    func lol() {
+        print("hai there")
+    }
+    
+}
