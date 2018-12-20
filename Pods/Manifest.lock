@@ -1,0 +1,62 @@
+PODS:
+  - Alamofire (4.8.0)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - Emitter (0.0.9):
+    - BlocksKit/DynamicDelegate
+  - Kingfisher (5.0.1)
+  - RxAlamofire (4.3.0):
+    - RxAlamofire/Core (= 4.3.0)
+  - RxAlamofire/Core (4.3.0):
+    - Alamofire (~> 4.5)
+    - RxSwift (~> 4)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - Socket.IO-Client-Swift (13.3.1):
+    - Starscream (~> 3.0.2)
+  - SocketIO (0.0.1):
+    - Emitter
+  - Starscream (3.0.6)
+
+DEPENDENCIES:
+  - Alamofire
+  - Kingfisher
+  - RxAlamofire
+  - RxCocoa
+  - RxSwift
+  - Socket.IO-Client-Swift (~> 13.3.0)
+  - SocketIO
+  - Starscream
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - BlocksKit
+    - Emitter
+    - Kingfisher
+    - RxAlamofire
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
+    - Socket.IO-Client-Swift
+    - SocketIO
+    - Starscream
+
+SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  Emitter: cf50bf44fc8817535018fbd6c4fd576b87803e78
+  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
+  RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  Socket.IO-Client-Swift: 79f8f85fa44881838175a20f9bd2c32bef2c9d37
+  SocketIO: 52f4b693419f30f831ac567dc306575384128920
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+
+PODFILE CHECKSUM: 76ff7d22fb9bfd99e9455225abddbaf10b234cfa
+
+COCOAPODS: 1.5.3
