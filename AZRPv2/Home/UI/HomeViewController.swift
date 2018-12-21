@@ -7,17 +7,28 @@
 //
 
 import UIKit
+import RxSwift
+import Starscream
+
 
 class HomeViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    var viewModel: HomeViewModelProtocol!
 
-    var viewModel: HomeViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        viewModel.lol()
+        viewModel.getDataFromApi().disposed(by: disposeBag)
+        viewModel.getUsersFromAPI().disposed(by: disposeBag)
+        viewModel.getUsersFromAPI(searchQuerry: "").disposed(by: disposeBag)
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.startDownload()
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
