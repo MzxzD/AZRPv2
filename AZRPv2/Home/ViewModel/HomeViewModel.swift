@@ -34,12 +34,12 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         self.message = SendMessageRequest()
     }
     
-    func fillUpMessage() -> SendMessageRequest {
+    func fillUpMessage(message: String) -> SendMessageRequest {
         var attributes = Attr()
         attributes.room = 1
-        attributes.content = "Testing String to send"
+        attributes.content = message
         attributes.object = ObjectType.message.rawValue
-        attributes.senderUnique = self.username + "_lol5"
+        attributes.senderUnique = self.username + "_" + randomString(length: 4)
         var message = SendMessageRequest()
         message.type = SendMessageType.create.rawValue
         message.attr = attributes
@@ -52,7 +52,7 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         socket.connect()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if (self.socket.isConnected){
-//                self.sendMessage()
+              //  self.sendMessage(message: "evo super sam...")
             }
         }
     }
@@ -129,6 +129,8 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         print("got some text: \(text)")
+        // Proveri text i odluci da li je message ili room
+        // nakon toga posebne metode za to
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -137,7 +139,7 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     }
     
     func sendMessage(message: String) {
-        self.socket.write(string: prepareObjectForSending(message: fillUpMessage()))
+        self.socket.write(string: prepareObjectForSending(message: fillUpMessage(message: message)))
     }
     
     func prepareObjectForSending(message: SendMessageRequest) -> String {
@@ -147,7 +149,6 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         return json ?? .empty
     }
 }
-
 
 protocol HomeViewModelProtocol {
     var downloadTrigger : ReplaySubject<Bool> {get}

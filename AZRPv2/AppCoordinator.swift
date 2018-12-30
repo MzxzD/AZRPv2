@@ -23,8 +23,8 @@ class AppCoordinator: Coordinator{
     func start() {
         window.rootViewController = presenter
         window.makeKeyAndVisible()
-        let homeCoordinator = HomeCoordinator(presenter: presenter)
-        addChildCoordinator(childCoordinator: homeCoordinator)
-        homeCoordinator.start()
+        let loginCoordinator = LoginCoordinator(presenter: presenter)
+        addChildCoordinator(childCoordinator: loginCoordinator)
+        loginCoordinator.start()
     }
 }
