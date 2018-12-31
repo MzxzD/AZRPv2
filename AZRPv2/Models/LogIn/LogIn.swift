@@ -18,3 +18,8 @@ struct User: Codable {
     let name: String
     let id: Int
 }
+
+
+struct ErrorMessage: Codable {
+    let detail: String
+}

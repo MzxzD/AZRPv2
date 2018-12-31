@@ -25,7 +25,7 @@ extension UITextField {
         let animation: CABasicAnimation = CABasicAnimation(keyPath: "shadowColor")
         animation.fromValue = baseColor
         animation.toValue = UIColor.red.cgColor
-        animation.duration = 0.4
+        animation.duration = 1
         if revert { animation.autoreverses = true } else { animation.autoreverses = false }
         self.layer.add(animation, forKey: "")
         
@@ -36,5 +36,17 @@ extension UITextField {
         shake.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 10, y: self.center.y))
         shake.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
         self.layer.add(shake, forKey: "position")
+    }
+}
+extension UITextField {
+    func setBottomBorder() {
+        self.borderStyle = .none
+        self.layer.backgroundColor = UIColor.white.cgColor
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
     }
 }

@@ -31,10 +31,13 @@
 		B549B77721CBF42A00629B2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B549B77221CBF42A00629B2E /* Localizable.strings */; };
 		B549B77921CBF48400629B2E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549B77821CBF48400629B2E /* AppCoordinator.swift */; };
 		B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554457C21D8DFBF006348B1 /* LoginCoordinator.swift */; };
-		B554457F21D8DFEF006348B1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554457E21D8DFEF006348B1 /* LoginViewController.swift */; };
+		B554457F21D8DFEF006348B1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554457E21D8DFEF006348B1 /* WelcomeViewController.swift */; };
 		B554458121D8DFFD006348B1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458021D8DFFD006348B1 /* LoginViewModel.swift */; };
 		B554458321D8E135006348B1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458221D8E135006348B1 /* LoginView.swift */; };
 		B554458521D8E219006348B1 /* UITextField + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458421D8E219006348B1 /* UITextField + Extensions.swift */; };
+		B554458721D921FE006348B1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458621D921FE006348B1 /* RegisterView.swift */; };
+		B554458921D9220E006348B1 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458821D9220E006348B1 /* RegisterViewModel.swift */; };
+		B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
 		B5CFA4C921CBFAA100982282 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C821CBFAA100982282 /* API.swift */; };
 		B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */; };
@@ -71,10 +74,13 @@
 		B549B77321CBF42A00629B2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B549B77821CBF48400629B2E /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B554457C21D8DFBF006348B1 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		B554457E21D8DFEF006348B1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B554457E21D8DFEF006348B1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		B554458021D8DFFD006348B1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B554458221D8E135006348B1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B554458421D8E219006348B1 /* UITextField + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Extensions.swift"; sourceTree = "<group>"; };
+		B554458621D921FE006348B1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B554458821D9220E006348B1 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		B5CFA4C821CBFAA100982282 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataWrapper.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 				B5313A7921CBF6440059DC66 /* UIView+Extensions.swift */,
 				B5313A7A21CBF6440059DC66 /* String+Extensions.swift */,
 				B554458421D8E219006348B1 /* UITextField + Extensions.swift */,
+				B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -158,7 +165,7 @@
 		B549B73E21CBF2BF00629B2E /* AZRPv2 */ = {
 			isa = PBXGroup;
 			children = (
-				B554457821D8DF83006348B1 /* Login */,
+				B554457821D8DF83006348B1 /* Welcome */,
 				B549B76B21CBF42A00629B2E /* Assets */,
 				B549B76121CBF41F00629B2E /* Home */,
 				B549B75721CBF41800629B2E /* Models */,
@@ -267,20 +274,21 @@
 			path = Localizable;
 			sourceTree = "<group>";
 		};
-		B554457821D8DF83006348B1 /* Login */ = {
+		B554457821D8DF83006348B1 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
 				B554457B21D8DFA5006348B1 /* Coordinator */,
 				B554457A21D8DF9C006348B1 /* ViewModel */,
 				B554457921D8DF92006348B1 /* UI */,
 			);
-			path = Login;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		B554457921D8DF92006348B1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B554457E21D8DFEF006348B1 /* LoginViewController.swift */,
+				B554457E21D8DFEF006348B1 /* WelcomeViewController.swift */,
+				B554458621D921FE006348B1 /* RegisterView.swift */,
 				B554458221D8E135006348B1 /* LoginView.swift */,
 			);
 			path = UI;
@@ -290,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				B554458021D8DFFD006348B1 /* LoginViewModel.swift */,
+				B554458821D9220E006348B1 /* RegisterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -485,17 +494,20 @@
 				B5CFA4D021CBFAD000982282 /* GeneralError.swift in Sources */,
 				B5CFA4CF21CBFAD000982282 /* ErrorAlert.swift in Sources */,
 				B549B75F21CBF41800629B2E /* RestManager.swift in Sources */,
+				B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */,
 				B549B75621CBF3F500629B2E /* SerializationManager.swift in Sources */,
+				B554458921D9220E006348B1 /* RegisterViewModel.swift in Sources */,
 				B554458521D8E219006348B1 /* UITextField + Extensions.swift in Sources */,
 				B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */,
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
+				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B549B75E21CBF41800629B2E /* BaseRepositoryProtocol.swift in Sources */,
 				B51E5E1221CCEE0E0068B642 /* SendMessageRequest.swift in Sources */,
 				B554458321D8E135006348B1 /* LoginView.swift in Sources */,
 				B549B77521CBF42A00629B2E /* Style+Extensions.swift in Sources */,
 				B549B74021CBF2BF00629B2E /* AppDelegate.swift in Sources */,
 				B549B76A21CBF41F00629B2E /* HomeCoordinator.swift in Sources */,
-				B554457F21D8DFEF006348B1 /* LoginViewController.swift in Sources */,
+				B554457F21D8DFEF006348B1 /* WelcomeViewController.swift in Sources */,
 				B51E5E0F21CCDB4F0068B642 /* Users.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

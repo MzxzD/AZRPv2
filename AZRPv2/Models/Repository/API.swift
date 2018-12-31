@@ -20,19 +20,26 @@ class APIService {
         let url = "http://0.0.0.0:8000/api/auth/login/"
         
         return RxAlamofire
-            .data(.post, url, parameters: ["username": username, "password": pass], encoding: URLEncoding.default , headers: nil)
-        
+            .request(.post, url, parameters: ["username": username, "password": pass], encoding: URLEncoding.default , headers: nil)
+            .validate(statusCode: 200..<500)
+            .responseJSON()
             .map({ (response) -> DataWrapper<LogIn> in
                 let decoder = JSONDecoder()
                 print(response)
                 var APIResponse: LogIn!
-                let responseJSON = response
+                let responseJSON = response.data!
                 do {
                     let data = try decoder.decode(LogIn.self, from: responseJSON)
                     APIResponse = data
-                }catch let error {
-                    print(error.localizedDescription)
-                    return DataWrapper(data: APIResponse, error: error)
+                }catch {
+//                    print(error.localizedDescription)
+                    
+                    let data = try decoder.decode(ErrorMessage.self, from: responseJSON)
+//                    print(data)
+                    
+                   let errorMessage = data.detail
+                    
+                    return DataWrapper(data: APIResponse, error: errorMessage)
                 }
                 
                 return DataWrapper(data:APIResponse, error: nil)
@@ -56,7 +63,7 @@ class APIService {
                     APIResponse = data
                 }catch let error {
                     print(error.localizedDescription)
-                    return DataWrapper(data: APIResponse, error: error)
+                    return DataWrapper(data: APIResponse, error: error.localizedDescription)
                 }
                 
                 return DataWrapper(data:APIResponse, error: nil)
@@ -80,7 +87,7 @@ class APIService {
                     APIResponse = data
                 }catch let error {
                     print(error.localizedDescription)
-                    return DataWrapper(data: APIResponse, error: error)
+                    return DataWrapper(data: APIResponse, error: error.localizedDescription)
                 }
                 
                 return DataWrapper(data:APIResponse, error: nil)

@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  RegisterViewModel.swift
 //  AZRPv2
 //
 //  Created by Mateo Doslic on 30/12/2018.
@@ -7,10 +7,3 @@
 //
 
 import Foundation
-import UIKit
-
-class LoginView: UIView {
-    
-    
-    
-}

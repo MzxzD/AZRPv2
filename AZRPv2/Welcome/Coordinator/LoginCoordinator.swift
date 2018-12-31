@@ -10,13 +10,13 @@ import UIKit
 class LoginCoordinator: Coordinator{
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
-    let controller: LoginViewController
+    let controller: WelcomeViewController
     init (presenter: UINavigationController){
         self.presenter = presenter
-        let controller = LoginViewController()
+        let controller = WelcomeViewController()
         //Add ViewModel initialization.
-        let homeViewModel = LoginViewModel()
-        controller.loginViewModel = homeViewModel
+//        let homeViewModel = LoginViewModel()
+//        controller.loginView.loginViewModel = homeViewModel
         self.controller = controller
     }
     func start() {

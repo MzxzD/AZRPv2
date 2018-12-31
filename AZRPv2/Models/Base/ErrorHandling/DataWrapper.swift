@@ -7,4 +7,4 @@
 //
 
 import Foundation
-typealias DataWrapper<T: Codable> = (data:T?, error: Error?)
+typealias DataWrapper<T: Codable> = (data:T?, error: String?)

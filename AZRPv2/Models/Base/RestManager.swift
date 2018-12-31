@@ -50,7 +50,7 @@ class RestManager {
     
     static func request<T: Codable> (url: String, method: HTTPMethod, params: Parameters?, headers: HTTPHeaders?,using completion: @escaping ((Result<T>) ->Void)) -> DataRequest? {
         return RestManager.manager.request(url, method: method, parameters: params, encoding: URLEncoding.default, headers: headers)
-            .validate()
+            .validate(statusCode: 200 ..< 500)
             .responseData { (response) in
                 
                 printResponse(response: response)
