@@ -12,10 +12,11 @@ class HomeCoordinator: Coordinator{
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
     let controller: HomeViewController
+    // later remove token because its saved in phones memory
     init (presenter: UINavigationController){
+//        presenter.viewControllers.removeAll()
         self.presenter = presenter
         let controller = HomeViewController()
-        //Add ViewModel initialization.
         let homeViewModel = HomeViewModel()
         controller.viewModel = homeViewModel
         self.controller = controller

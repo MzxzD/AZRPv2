@@ -38,6 +38,10 @@
 		B554458721D921FE006348B1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458621D921FE006348B1 /* RegisterView.swift */; };
 		B554458921D9220E006348B1 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458821D9220E006348B1 /* RegisterViewModel.swift */; };
 		B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */; };
+		B563327621DA8697000D0146 /* HomeCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327521DA8697000D0146 /* HomeCoordinatorDelegate.swift */; };
+		B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */; };
+		B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */; };
+		B563327C21DA95B2000D0146 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327B21DA95B2000D0146 /* Message.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
 		B5CFA4C921CBFAA100982282 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C821CBFAA100982282 /* API.swift */; };
 		B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */; };
@@ -81,6 +85,10 @@
 		B554458621D921FE006348B1 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B554458821D9220E006348B1 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		B563327521DA8697000D0146 /* HomeCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		B563327B21DA95B2000D0146 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		B5CFA4C821CBFAA100982282 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataWrapper.swift; sourceTree = "<group>"; };
@@ -190,6 +198,7 @@
 		B549B75721CBF41800629B2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B563327D21DA962C000D0146 /* Message */,
 				B51E5E1021CCEDDB0068B642 /* Send Message */,
 				B51E5E0D21CCDB250068B642 /* Users */,
 				B5CFA4C721CBFA0C00982282 /* Repository */,
@@ -243,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				B549B76721CBF41F00629B2E /* HomeCoordinator.swift */,
+				B563327521DA8697000D0146 /* HomeCoordinatorDelegate.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -299,6 +309,7 @@
 			children = (
 				B554458021D8DFFD006348B1 /* LoginViewModel.swift */,
 				B554458821D9220E006348B1 /* RegisterViewModel.swift */,
+				B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -307,8 +318,17 @@
 			isa = PBXGroup;
 			children = (
 				B554457C21D8DFBF006348B1 /* LoginCoordinator.swift */,
+				B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		B563327D21DA962C000D0146 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				B563327B21DA95B2000D0146 /* Message.swift */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		B5CFA4C421CBF95300982282 /* LogIn */ = {
@@ -479,6 +499,7 @@
 			files = (
 				B549B74821CBF2BF00629B2E /* AZRPv2.xcdatamodeld in Sources */,
 				B5CFA4C921CBFAA100982282 /* API.swift in Sources */,
+				B563327621DA8697000D0146 /* HomeCoordinatorDelegate.swift in Sources */,
 				B549B76821CBF41F00629B2E /* HomeViewModel.swift in Sources */,
 				B5313A7621CBF6310059DC66 /* Coordinator.swift in Sources */,
 				B5313A7721CBF6310059DC66 /* CoordinatorDelegate.swift in Sources */,
@@ -497,8 +518,10 @@
 				B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */,
 				B549B75621CBF3F500629B2E /* SerializationManager.swift in Sources */,
 				B554458921D9220E006348B1 /* RegisterViewModel.swift in Sources */,
+				B563327C21DA95B2000D0146 /* Message.swift in Sources */,
 				B554458521D8E219006348B1 /* UITextField + Extensions.swift in Sources */,
 				B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */,
+				B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */,
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B549B75E21CBF41800629B2E /* BaseRepositoryProtocol.swift in Sources */,
@@ -506,6 +529,7 @@
 				B554458321D8E135006348B1 /* LoginView.swift in Sources */,
 				B549B77521CBF42A00629B2E /* Style+Extensions.swift in Sources */,
 				B549B74021CBF2BF00629B2E /* AppDelegate.swift in Sources */,
+				B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */,
 				B549B76A21CBF41F00629B2E /* HomeCoordinator.swift in Sources */,
 				B554457F21D8DFEF006348B1 /* WelcomeViewController.swift in Sources */,
 				B51E5E0F21CCDB4F0068B642 /* Users.swift in Sources */,

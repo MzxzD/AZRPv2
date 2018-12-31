@@ -18,15 +18,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        viewModel.getDataFromApi().disposed(by: disposeBag)
-        viewModel.getUsersFromAPI().disposed(by: disposeBag)
-        viewModel.getUsersFromAPI(searchQuerry: "").disposed(by: disposeBag)
+        viewModel.initiateWebSocket()
+//        viewModel.getDataFromApi().disposed(by: disposeBag)
+//        viewModel.getUsersFromAPI().disposed(by: disposeBag)
+//        viewModel.getUsersFromAPI(searchQuerry: "").disposed(by: disposeBag)
         // Do any additional setup after loading the view.
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.startDownload()
 
     }
     override func didReceiveMemoryWarning() {

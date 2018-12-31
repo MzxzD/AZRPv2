@@ -15,12 +15,27 @@ class LoginCoordinator: Coordinator{
         self.presenter = presenter
         let controller = WelcomeViewController()
         //Add ViewModel initialization.
-//        let homeViewModel = LoginViewModel()
-//        controller.loginView.loginViewModel = homeViewModel
+        let welcomeViewModel = WelcomeViewModel()
+        controller.welcomeViewModel = welcomeViewModel
         self.controller = controller
+        self.controller.welcomeViewModel.coordinatorDelegate = self
+
     }
     func start() {
         presenter.pushViewController(controller, animated: true)
+    }
+    
+    
+}
+extension LoginCoordinator: LoginCoordinatorDelegate {
+    func openHomeScreen(token: String) {
+        let homeCoordinator = HomeCoordinator(presenter: presenter)
+        homeCoordinator.start()
+        addChildCoordinator(childCoordinator: homeCoordinator)
+    }
+    
+    func viewControllerHasFinished() {
+        
     }
     
     

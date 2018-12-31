@@ -15,6 +15,7 @@ class WelcomeViewController: UIViewController {
     let disposeBag = DisposeBag()
     var loginView: LoginView!
     var registerView: RegistrationView!
+    var welcomeViewModel: WelcomeViewModel!
     
     var loginButton: UIButton = {
         let button = UIButton()
@@ -43,6 +44,18 @@ class WelcomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func initializeAutentificationObserver() {
+        let authObserver = loginView.loginViewModel.authTrigger
+        authObserver
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+        .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (event) in
+                if event {
+                    self.welcomeViewModel.openHomeScreen()
+                }
+            })
+        .disposed(by: disposeBag)
+    }
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -99,6 +112,7 @@ class WelcomeViewController: UIViewController {
             }
             .bind(to: loginView.usernameErrorLabel.rx.text)
             .disposed(by: disposeBag)
+        initializeAutentificationObserver()
         loginView.alpha = 0
 //        loginButton.fadeOut()
 //        registerButton.fadeOut()

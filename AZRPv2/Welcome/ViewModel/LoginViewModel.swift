@@ -14,13 +14,16 @@ import RxSwift
 class LoginViewModel {
     var user: NSManagedObject!
     var downloadTrigger: ReplaySubject<Bool>
+    var authTrigger: ReplaySubject<Bool>
     var error: PublishSubject<String>
     var username: String = .empty
     var pass: String = .empty
     var token: String = .empty
+
     
     init() {
         self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+        self.authTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.error = PublishSubject<String>()
     }
     
@@ -47,6 +50,10 @@ class LoginViewModel {
                     }catch let error as NSError {
                         print("Error:",error)
                     }
+                    // Trigger to open HOME SCREEN!
+                    self.authTrigger.onNext(true)
+                    
+                    
                 } else {
                     self.error.onNext(downloadedData.error!)
                 }
