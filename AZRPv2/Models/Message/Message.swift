@@ -17,16 +17,16 @@ struct MessageObject: Codable {
 }
 
 struct Attributes: Codable {
-    let object: String?
-    let content: String?
-    let messageID: Int?
-    let time: Double?
-    let sender: String?
-    let senderID: Int?
-    let senderUnique: String?
-    let roomParticipants: [Int]?
-    let room: Int?
-    let roomName: String?
+    let object: String
+    let content: String
+    let messageID: Int
+    let time: Double
+    let sender: String
+    let senderID: Int
+    let senderUnique: String
+    let roomParticipants: [Int]
+    let room: Int
+    let roomName: String
     let location, file: JSONNull?
     
     enum CodingKeys: String, CodingKey {

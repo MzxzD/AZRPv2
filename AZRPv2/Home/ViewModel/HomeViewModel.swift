@@ -17,23 +17,28 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     var downloadTrigger: ReplaySubject<Bool>
     var searchTrigger: ReplaySubject<Bool>
     var searchWithInputTrigger: ReplaySubject<Bool>
-    var dataIsReady: PublishSubject<Bool>
     let username: String
     let pass: String
     var token: String!
     var socket: WebSocket!
     var message: SendMessageRequest!
-    
+    var roomMessages : [RoomMessages] = []
+    var dataIsReady : PublishSubject<TableRefresh>
+    var loader: PublishSubject<Bool>
+    var error: PublishSubject<String>
     
     init() {
         username = "admin"
         pass = "admin"
-        self.dataIsReady = PublishSubject<Bool>()
+        self.dataIsReady = PublishSubject<TableRefresh>()
         self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.searchWithInputTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+        self.error = PublishSubject<String>()
+        self.loader = PublishSubject<Bool>()
         self.message = SendMessageRequest()
         self.token = getTokenFromData()
+        
     }
     
     func getTokenFromData() -> String {
@@ -151,18 +156,41 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
 //        print("got some text: \(text)")
         let responseData = text.data(using: String.Encoding.utf8)
-        let newMessage: MessageObject!
+        let decoder = JSONDecoder()
+        var roomMessage = RoomMessages(roomObject: nil, messages: [])
+        var message: MessageObject!
         do{
-            let data = try JSONDecoder().decode(MessageObject.self, from: responseData!)
-            newMessage = data
-            guard let messageData = newMessage.attr.content else { return }
+            let data = try decoder.decode(MessageObject.self, from: responseData!)
+//            guard let messageData = newMessage.attr.content else { return }
+            message = data
+//            print(data)
+        } catch {
             
-            print(messageData)
-        } catch let error {
-            print(error)
+            do {
+                let data = try decoder.decode(RoomObject.self, from: responseData!)
+                roomMessage.roomObject = data
+            } catch let error {
+                self.error.onNext(error.localizedDescription)
+            }
+            
         }
-
-//        print(newMessage.attr.roomName)
+        if roomMessage.roomObject != nil {
+            // Ddodaj u postojeći element
+            self.roomMessages.append(roomMessage)
+        }else {
+            // kreirati novi table item!
+            for (index, element) in self.roomMessages.enumerated(){
+                if element.roomObject?.attr.id == message.attr.room {
+                    self.roomMessages[index].messages.append(message)
+                }
+            }
+            
+        }
+        self.dataIsReady.onNext(.complete)
+        
+//        roomMessage.roomObject
+//        print(self.roomMessages.count)
+//        print(self.roomMessages.last?.messages.last?.attr.content)
         
         // Proveri text i odluci da li je message ili room
         // nakon toga posebne metode za to
@@ -187,8 +215,11 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 
 protocol HomeViewModelProtocol {
     var downloadTrigger : ReplaySubject<Bool> {get}
-    var dataIsReady : PublishSubject<Bool> {get}
+    var dataIsReady : PublishSubject<TableRefresh> {get}
+    var loader: PublishSubject<Bool> {get}
     func initiateWebSocket()
+    var roomMessages : [RoomMessages] {get}
+    var error: PublishSubject<String> {get}
     //    func startDownload()
     //    func getDataFromApi() -> Disposable
     //    func getUsersFromAPI() -> Disposable
