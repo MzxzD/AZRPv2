@@ -9,52 +9,35 @@
 import Foundation
 import UIKit
 import RxSwift
-import SocketIO
 import Starscream
-import CoreData
 
 class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
-    var downloadTrigger: ReplaySubject<Bool>
-    var searchTrigger: ReplaySubject<Bool>
-    var searchWithInputTrigger: ReplaySubject<Bool>
-    let username: String
-    let pass: String
-    var token: String!
-    var socket: WebSocket!
-    var message: SendMessageRequest!
+//    var downloadTrigger: ReplaySubject<Bool>
+//    var searchTrigger: ReplaySubject<Bool>
+//    var searchWithInputTrigger: ReplaySubject<Bool>
+    var socketController: WebSocketController
+//    var message: SendMessageRequest!
     var roomMessages : [RoomMessages] = []
     var dataIsReady : PublishSubject<TableRefresh>
-    var loader: PublishSubject<Bool>
+//    var loader: PublishSubject<Bool>
     var error: PublishSubject<String>
     
     init() {
-        username = "admin"
-        pass = "admin"
         self.dataIsReady = PublishSubject<TableRefresh>()
-        self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
-        self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
-        self.searchWithInputTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+//        self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+//        self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+//        self.searchWithInputTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.error = PublishSubject<String>()
-        self.loader = PublishSubject<Bool>()
-        self.message = SendMessageRequest()
-        self.token = getTokenFromData()
+//        self.loader = PublishSubject<Bool>()
+//        self.message = SendMessageRequest()
+        self.socketController = WebSocketController()
+        self.socketController.socket.delegate = self
+        self.socketController.socket.connect()
+//        self.token = getTokenFromData()
         
     }
     
-    func getTokenFromData() -> String {
-        var user: NSManagedObject!
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return .empty }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AZRPUser")
-        do {
-            user = try managedContext.fetch(fetchRequest).first
-        } catch let error as NSError {
-            print("Error occured while fetching items", error)
-        }
-        
-        return user.value(forKey: "token") as! String
-        
-    }
+
     
     //    func fillUpMessage(message: String) -> SendMessageRequest {
     //        var attributes = Attr()
@@ -68,41 +51,6 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     //        return message
     //    }
     
-    func initiateWebSocket(){
-        self.createWebSocket(lastRoomID: -1, LastMessageID: -1)
-    }
-    
-    private func createWebSocket(lastRoomID: Int, LastMessageID: Int) {
-        self.socket = WebSocket(url: URL(string: "ws://0.0.0.0:8000/"+self.token+"/"+String(lastRoomID)+"/"+String(LastMessageID)+"/")!)
-        self.socket.delegate = self
-        socket.connect()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if (self.socket.isConnected){
-                //  self.sendMessage(message: "evo super sam...")
-            }
-        }
-    }
-    
-    //    func getDataFromApi() -> Disposable {
-    //        let downloadObserverTrigger = downloadTrigger.flatMap { (_) -> Observable<DataWrapper<LogIn>> in
-    //            return APIService().fetchDataFromApI(username: self.username, pass: self.pass)
-    //        }
-    //
-    //        return downloadObserverTrigger
-    //            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-    //            .observeOn(MainScheduler.instance)
-    //            .subscribe(onNext: { [unowned self](downloadedData) in
-    //                if downloadedData.error == nil {
-    //                    self.token = (downloadedData.data?.token)!
-    //                    self.dataIsReady.onNext(true)
-    ////                    print(downloadedData.data)
-    //                    self.createWebSocket(lastRoomID: -1, LastMessageID: -1)
-    //
-    //                } else {
-    //                    print("boooo")
-    //                }
-    //            })
-    //    }
     
     //    func getUsersFromAPI() -> Disposable {
     //        let downloadObserverTrigger = searchTrigger.flatMap { (_) -> Observable<DataWrapper<Users>> in
@@ -140,17 +88,12 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     //            })
     //    }
     
-    //    func startDownload() {
-    //        downloadTrigger.onNext(true)
-    //    }
-    
     func websocketDidConnect(socket: WebSocketClient) {
         print("websocket is connected")
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
-        //        print(error)
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
@@ -214,15 +157,9 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 }
 
 protocol HomeViewModelProtocol {
-    var downloadTrigger : ReplaySubject<Bool> {get}
+//    var downloadTrigger : ReplaySubject<Bool> {get}
     var dataIsReady : PublishSubject<TableRefresh> {get}
-    var loader: PublishSubject<Bool> {get}
-    func initiateWebSocket()
+//    var loader: PublishSubject<Bool> {get}
     var roomMessages : [RoomMessages] {get}
     var error: PublishSubject<String> {get}
-    //    func startDownload()
-    //    func getDataFromApi() -> Disposable
-    //    func getUsersFromAPI() -> Disposable
-    //    func getUsersFromAPI(searchQuerry: String) -> Disposable
-    
 }

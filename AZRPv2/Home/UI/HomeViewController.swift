@@ -48,7 +48,6 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
         initializeRefreshDriver(refreshObservable: viewModel.dataIsReady)
 //        initializeLoaderObserver(viewModel.loader)
         initializeError()
-        viewModel.initiateWebSocket()
     }
     
     func initializeError() {

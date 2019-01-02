@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B08463D3A5985266D503C694 /* Pods_AZRPv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD55A997F49E6AC32222002 /* Pods_AZRPv2.framework */; };
+		B510037A21DCE8F70078230E /* WebSocketAdress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510037921DCE8F70078230E /* WebSocketAdress.swift */; };
+		B510037D21DCEC900078230E /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510037C21DCEC900078230E /* WebSocket.swift */; };
 		B51E5E0F21CCDB4F0068B642 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51E5E0E21CCDB4F0068B642 /* Users.swift */; };
 		B51E5E1221CCEE0E0068B642 /* SendMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51E5E1121CCEE0E0068B642 /* SendMessageRequest.swift */; };
 		B5313A7621CBF6310059DC66 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5313A7421CBF6310059DC66 /* Coordinator.swift */; };
@@ -67,6 +69,8 @@
 		057C08913D65E196BF09C2AF /* Pods-AZRPv2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AZRPv2.release.xcconfig"; path = "Pods/Target Support Files/Pods-AZRPv2/Pods-AZRPv2.release.xcconfig"; sourceTree = "<group>"; };
 		3DD55A997F49E6AC32222002 /* Pods_AZRPv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AZRPv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CA1865C5D0A93DD8C1F926 /* Pods-AZRPv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AZRPv2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AZRPv2/Pods-AZRPv2.debug.xcconfig"; sourceTree = "<group>"; };
+		B510037921DCE8F70078230E /* WebSocketAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketAdress.swift; sourceTree = "<group>"; };
+		B510037C21DCEC900078230E /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		B51E5E0E21CCDB4F0068B642 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		B51E5E1121CCEE0E0068B642 /* SendMessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageRequest.swift; sourceTree = "<group>"; };
 		B5313A7421CBF6310059DC66 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -142,6 +146,22 @@
 				3DD55A997F49E6AC32222002 /* Pods_AZRPv2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B510037821DCE8DF0078230E /* HelperValues */ = {
+			isa = PBXGroup;
+			children = (
+				B510037921DCE8F70078230E /* WebSocketAdress.swift */,
+			);
+			path = HelperValues;
+			sourceTree = "<group>";
+		};
+		B510037B21DCEC7F0078230E /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				B510037C21DCEC900078230E /* WebSocket.swift */,
+			);
+			path = WebSocket;
 			sourceTree = "<group>";
 		};
 		B51E5E0D21CCDB250068B642 /* Users */ = {
@@ -242,6 +262,8 @@
 		B549B75821CBF41800629B2E /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				B510037B21DCEC7F0078230E /* WebSocket */,
+				B510037821DCE8DF0078230E /* HelperValues */,
 				B5DC875C21DBBC2B00FDA595 /* ErrorAlertController */,
 				B5DC875121DBBC1100FDA595 /* Loader */,
 				B5DC874921DBBB1D00FDA595 /* Table */,
@@ -604,6 +626,7 @@
 				B5313A7721CBF6310059DC66 /* CoordinatorDelegate.swift in Sources */,
 				B5313A7C21CBF6440059DC66 /* String+Extensions.swift in Sources */,
 				B549B76021CBF41800629B2E /* NetworkError.swift in Sources */,
+				B510037D21DCEC900078230E /* WebSocket.swift in Sources */,
 				B549B75D21CBF41800629B2E /* RestEndpoints.swift in Sources */,
 				B554458121D8DFFD006348B1 /* LoginViewModel.swift in Sources */,
 				B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */,
@@ -629,6 +652,7 @@
 				B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */,
 				B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */,
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
+				B510037A21DCE8F70078230E /* WebSocketAdress.swift in Sources */,
 				B5DC874E21DBBB6900FDA595 /* TableSectionItem.swift in Sources */,
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B5DC875721DBBC1100FDA595 /* LoaderOverlayView.swift in Sources */,
