@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8971F39414DA705837D1D5B692E1D5AC"
+               BlueprintIdentifier = "5572AEE8D0233CC993119CB6D74C4273"
                BuildableName = "SocketIO.bundle"
                BlueprintName = "SocketIO-SocketIO"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8971F39414DA705837D1D5B692E1D5AC"
+            BlueprintIdentifier = "5572AEE8D0233CC993119CB6D74C4273"
             BuildableName = "SocketIO.bundle"
             BlueprintName = "SocketIO-SocketIO"
             ReferencedContainer = "container:Pods.xcodeproj">

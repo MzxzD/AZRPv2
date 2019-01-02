@@ -43,6 +43,8 @@
 		B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */; };
 		B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */; };
 		B563327C21DA95B2000D0146 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327B21DA95B2000D0146 /* Message.swift */; };
+		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
+		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
 		B5CFA4C921CBFAA100982282 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C821CBFAA100982282 /* API.swift */; };
 		B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */; };
@@ -106,6 +108,8 @@
 		B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		B563327B21DA95B2000D0146 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		B5CFA4C821CBFAA100982282 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B5CFA4CB21CBFACF00982282 /* DataWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataWrapper.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 		B549B75721CBF41800629B2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B5C136FB21DD055000B17888 /* RealmRoomObject */,
 				B5DC874121DBAEED00FDA595 /* RoomObject */,
 				B563327D21DA962C000D0146 /* Message */,
 				B51E5E1021CCEDDB0068B642 /* Send Message */,
@@ -387,6 +392,14 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		B5C136FB21DD055000B17888 /* RealmRoomObject */ = {
+			isa = PBXGroup;
+			children = (
+				B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */,
+			);
+			path = RealmRoomObject;
+			sourceTree = "<group>";
+		};
 		B5CFA4C421CBF95300982282 /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +411,7 @@
 		B5CFA4C721CBFA0C00982282 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				B5C136F921DCF89F00B17888 /* RealmRepository.swift */,
 				B5CFA4C821CBFAA100982282 /* API.swift */,
 			);
 			path = Repository;
@@ -584,6 +598,8 @@
 				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Emitter/Emitter.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -598,6 +614,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlocksKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Emitter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -634,6 +652,7 @@
 				B5DC875021DBBB6900FDA595 /* TableRefresh.swift in Sources */,
 				B5DC875E21DBBC2B00FDA595 /* ErrorAlertController.swift in Sources */,
 				B549B77621CBF42A00629B2E /* Theme.swift in Sources */,
+				B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */,
 				B5DC874821DBBB0700FDA595 /* TableRefreshViewModel.swift in Sources */,
 				B5DC874321DBAF2400FDA595 /* RoomObject.swift in Sources */,
 				B549B77921CBF48400629B2E /* AppCoordinator.swift in Sources */,
@@ -641,6 +660,7 @@
 				B5DC875A21DBBC1100FDA595 /* LoaderViewProtocol.swift in Sources */,
 				B5CFA4CF21CBFAD000982282 /* ErrorAlert.swift in Sources */,
 				B549B75F21CBF41800629B2E /* RestManager.swift in Sources */,
+				B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */,
 				B5DC874621DBBACB00FDA595 /* TableRefreshView.swift in Sources */,
 				B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */,
 				B549B75621CBF3F500629B2E /* SerializationManager.swift in Sources */,

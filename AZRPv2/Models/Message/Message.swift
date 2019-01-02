@@ -10,24 +10,46 @@
 //   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
+import Realm
+import RealmSwift
 
-struct MessageObject: Codable {
-    let type: String
-    let attr: Attributes
+class MessageObject: Object, Codable {
+    var type: String = .empty
+    var attr: Attributes = Attributes()
+    
+    
+    convenience init(type: String, attr: Attributes){
+        self.init()
+        self.type = type
+        self.attr = attr
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
 }
 
-struct Attributes: Codable {
-    let object: String
-    let content: String
-    let messageID: Int
-    let time: Double
-    let sender: String
-    let senderID: Int
-    let senderUnique: String
-    let roomParticipants: [Int]
-    let room: Int
-    let roomName: String
-    let location, file: JSONNull?
+class Attributes: Object, Codable {
+    var object: String = .empty
+    var content: String = .empty
+    var messageID: Int = 0
+    var time: Double = 0
+    var sender: String = .empty
+    var senderID: Int = 0
+    var senderUnique: String = .empty
+    var roomParticipants: [Int] = []
+    var room: Int = 0
+    var roomName: String = .empty
+    var location, file: JSONNull?
     
     enum CodingKeys: String, CodingKey {
         case object, content
@@ -40,6 +62,57 @@ struct Attributes: Codable {
         case roomName = "room_name"
         case location, file
     }
+    
+    convenience init(object: String, content: String, messageID: Int, time: Double, sender: String, senderID: Int, senderUnique: String, roomParticipants: [Int], room: Int, roomName: String, location: JSONNull?, file: JSONNull?){
+        self.init()
+        self.object = object
+        self.content = content
+        self.messageID = messageID
+        self.time = time
+        self.sender = sender
+        self.senderID = senderID
+        self.senderUnique = senderUnique
+        self.roomParticipants = roomParticipants
+        self.room = room
+        self.roomName = roomName
+        self.location = location ?? nil
+        self.file = file ?? nil
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let object = try container.decode(String.self, forKey: .object)
+        let content = try container.decode(String.self, forKey: .content)
+        let messageID = try container.decode(Int.self, forKey: .messageID)
+        let time = try container.decode(Double.self, forKey: .time)
+        let sender = try container.decode(String.self, forKey: .sender)
+        let senderID = try container.decode(Int.self, forKey: .senderID)
+        let senderUnique = try container.decode(String.self, forKey: .senderUnique)
+        let roomParticipants = try container.decode([Int].self, forKey: .roomParticipants)
+        let room = try container.decode(Int.self, forKey: .room)
+        let roomName = try container.decode(String.self, forKey: .roomName)
+        let location = try container.decode(JSONNull.self, forKey: .location)
+        let file = try container.decode(JSONNull.self, forKey: .file)
+
+        self.init(object: object, content: content, messageID: messageID, time: time, sender: sender, senderID: senderID, senderUnique: senderUnique, roomParticipants: roomParticipants, room: room, roomName: roomName, location: location, file: file)
+
+    }
+    
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
+    
+    
 }
 
 // MARK: Encode/decode helpers

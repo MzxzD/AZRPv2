@@ -9,6 +9,7 @@ def shared_pods
   pod 'Socket.IO-Client-Swift', '~> 13.3.0'
   pod 'Starscream'
   pod 'SocketIO'
+  pod 'RealmSwift'
   #pod 'R.swift','~> 5.0.0.alpha'
   #pod 'BaseKit', :git => 'http://git.plavatvornica.com/factory/iosbasekit.git'
  

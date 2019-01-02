@@ -47,6 +47,7 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     private func initializeData() {
         initializeRefreshDriver(refreshObservable: viewModel.dataIsReady)
 //        initializeLoaderObserver(viewModel.loader)
+        self.viewModel.getStoredRooms().disposed(by: disposeBag)
         initializeError()
     }
     
@@ -65,8 +66,9 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupIdentifier", for: indexPath) as! GroupTableViewCell
         let group = self.viewModel.roomMessages[indexPath.row]
-        cell.GroupNameLabel.text = group.roomObject!.attr.name
-        cell.lastMessageLabel.text = group.messages.last?.attr.content
+        print(group.messages)
+        cell.GroupNameLabel.text = group.roomObject?.attr.name ?? .empty
+        cell.lastMessageLabel.text = group.messages.last?.attr.content ?? .empty
         cell.timeLabel.text = dayStringFromTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000)
         cell.userNameLabel.text = (group.messages.last?.attr.sender ?? .empty) + " : "
         return cell

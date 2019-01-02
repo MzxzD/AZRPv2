@@ -10,34 +10,94 @@ import Foundation
 import UIKit
 import RxSwift
 import Starscream
+import RealmSwift
 
 class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
-//    var downloadTrigger: ReplaySubject<Bool>
-//    var searchTrigger: ReplaySubject<Bool>
-//    var searchWithInputTrigger: ReplaySubject<Bool>
+    //    var downloadTrigger: ReplaySubject<Bool>
+    //    var searchTrigger: ReplaySubject<Bool>
+    //    var searchWithInputTrigger: ReplaySubject<Bool>
+    var realmServise = RealmSerivce()
+    var refreshPublisher: ReplaySubject<Bool>
+    
     var socketController: WebSocketController
-//    var message: SendMessageRequest!
+    //    var message: SendMessageRequest!
     var roomMessages : [RoomMessages] = []
+    //    var realmRoomMessages : [RoomMessages] = []
     var dataIsReady : PublishSubject<TableRefresh>
-//    var loader: PublishSubject<Bool>
+    //    var loader: PublishSubject<Bool>
     var error: PublishSubject<String>
     
     init() {
         self.dataIsReady = PublishSubject<TableRefresh>()
-//        self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
-//        self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
-//        self.searchWithInputTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+        self.refreshPublisher = ReplaySubject<Bool>.create(bufferSize: 1)
+        //        self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+        //        self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
+        //        self.searchWithInputTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.error = PublishSubject<String>()
-//        self.loader = PublishSubject<Bool>()
-//        self.message = SendMessageRequest()
+        //        self.roomMessages = []
+        
+        //        self.loader = PublishSubject<Bool>()
+        //        self.message = SendMessageRequest()
         self.socketController = WebSocketController()
         self.socketController.socket.delegate = self
         self.socketController.socket.connect()
-//        self.token = getTokenFromData()
+        //        self.token = getTokenFromData()
         
     }
     
-
+    func getStoredRooms() -> Disposable {
+        let realmObaerverTrigger = refreshPublisher
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] (event) in
+                if event {
+                    self.roomMessages.removeAll()
+                    
+                    let realmRooms = self.realmServise.realm.objects(RoomMessages.self)
+                    for room in realmRooms {
+                        self.roomMessages += [room]
+                        print(self.roomMessages.count)
+                    }
+                    //                    self.refreshView.onNext(TableRefresh.complete)
+                    //                    self.refreshPublisher.onNext(false)
+                    self.dataIsReady.onNext(.complete)
+                }
+            })
+        return realmObaerverTrigger
+    }
+    
+    
+    
+    private func serialize(data: Data) -> (MessageObject?, RoomObject?) {
+        let jsonDecoder = JSONDecoder()
+        var message: MessageObject? = nil
+        var room: RoomObject? = nil
+        
+        
+        do{
+            let data = try jsonDecoder.decode(MessageObject.self, from: data)
+            //            guard let messageData = newMessage.attr.content else { return }
+            message = data
+            //            print(data)
+        } catch {
+            
+            do {
+                let data = try jsonDecoder.decode(RoomObject.self, from: data)
+                room = data
+                print(data)
+            } catch let error {
+                self.error.onNext(error.localizedDescription)
+            }
+            
+        }
+        
+        return (message, room)
+        
+    }
+    
+    
+    
+    
     
     //    func fillUpMessage(message: String) -> SendMessageRequest {
     //        var attributes = Attr()
@@ -97,46 +157,62 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-//        print("got some text: \(text)")
+        //        print("got some text: \(text)")
         let responseData = text.data(using: String.Encoding.utf8)
-        let decoder = JSONDecoder()
-        var roomMessage = RoomMessages(roomObject: nil, messages: [])
+        //        let decoder = JSONDecoder()
+        let roomMessage = RoomMessages()
         var message: MessageObject!
-        do{
-            let data = try decoder.decode(MessageObject.self, from: responseData!)
-//            guard let messageData = newMessage.attr.content else { return }
-            message = data
-//            print(data)
-        } catch {
-            
-            do {
-                let data = try decoder.decode(RoomObject.self, from: responseData!)
-                roomMessage.roomObject = data
-            } catch let error {
-                self.error.onNext(error.localizedDescription)
-            }
-            
-        }
-        if roomMessage.roomObject != nil {
-            // Ddodaj u postojeći element
-            self.roomMessages.append(roomMessage)
-        }else {
-            // kreirati novi table item!
-            for (index, element) in self.roomMessages.enumerated(){
-                if element.roomObject?.attr.id == message.attr.room {
-                    self.roomMessages[index].messages.append(message)
+        
+        let messageRoomTuple: (message: MessageObject?, room:RoomObject?) = serialize(data: responseData!)
+        
+        switch messageRoomTuple {
+        case (nil, nil):
+            self.error.onNext("Parsing Failed")
+        default:
+            if messageRoomTuple.message == nil {
+                //            roomMessage.roomObject = messageRoomTuple.room
+                // NEW ROOM
+                roomMessage.roomObject = messageRoomTuple.room
+                let new : RoomMessages = roomMessage
+                if (!self.realmServise.update(object: new)){
+                    self.error.onNext("Error saving new Room")
                 }
+                self.refreshPublisher.onNext(true)
+                
+                
+            }else {
+                // Message in existing room
+                message = messageRoomTuple.message
+                var newRoom: [RoomMessages] = self.roomMessages
+                for (index, element) in self.roomMessages.enumerated(){
+                    if element.roomObject?.attr.id == message.attr.room {
+                        let realmID = element.roomID
+                        self.roomMessages[index].messages += [message]
+                        newRoom = self.roomMessages
+                        let lol = self.realmServise.realm.object(ofType: RoomMessages.self, forPrimaryKey: realmID)
+                        if (!self.realmServise.deleteMessageObject(object: (lol?.messages.first)!)) {
+                            self.error.onNext("YOU FAILURE")
+                        }
+                        if (!self.realmServise.update(object: lol!)) {
+                            self.error.onNext("BOOOO!")
+                        }
+                        self.refreshPublisher.onNext(true)
+                        
+                    }
+                }
+                for element in newRoom{
+                    if(!self.realmServise.create(object: element)){
+                        self.error.onNext("ErrorSaving new message")
+                    }
+                }
+                self.refreshPublisher.onNext(true)
+                
             }
-            
         }
-        self.dataIsReady.onNext(.complete)
         
-//        roomMessage.roomObject
-//        print(self.roomMessages.count)
-//        print(self.roomMessages.last?.messages.last?.attr.content)
         
-        // Proveri text i odluci da li je message ili room
-        // nakon toga posebne metode za to
+        
+        
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -157,9 +233,16 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 }
 
 protocol HomeViewModelProtocol {
-//    var downloadTrigger : ReplaySubject<Bool> {get}
+    //    var downloadTrigger : ReplaySubject<Bool> {get}
     var dataIsReady : PublishSubject<TableRefresh> {get}
-//    var loader: PublishSubject<Bool> {get}
+    //    var loader: PublishSubject<Bool> {get}
     var roomMessages : [RoomMessages] {get}
     var error: PublishSubject<String> {get}
+    func getStoredRooms() -> Disposable
 }
+
+
+
+
+
+
