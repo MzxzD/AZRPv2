@@ -1,10 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AZRPFile" representedClassName="AZRPFile" syncable="YES" codeGenerationType="class">
+        <attribute name="fileHashValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AZRPMessageAttributes" representedClassName="AZRPMessageAttributes" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="object" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="room" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="roomName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomParticipants" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="senderUnique" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="AZRPMessageLocation" representedClassName="AZRPMessageLocation" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="AZRPMessageObject" representedClassName="AZRPMessageObject" syncable="YES" codeGenerationType="class">
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="AZRPRoomAttributes" representedClassName="AZRPRoomAttributes" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="object" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="participants" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="senderUnique" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="AZRPRoomMessages" representedClassName="AZRPRoomMessages" syncable="YES" codeGenerationType="class"/>
+    <entity name="AZRPRoomObject" representedClassName="AZRPRoomObject" syncable="YES" codeGenerationType="class">
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="AZRPUser" representedClassName="AZRPUser" syncable="YES" codeGenerationType="class">
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="AZRPUser" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="AZRPRoomMessages" positionX="-63" positionY="0" width="128" height="45"/>
+        <element name="AZRPRoomObject" positionX="-54" positionY="9" width="128" height="60"/>
+        <element name="AZRPMessageObject" positionX="-36" positionY="18" width="128" height="60"/>
+        <element name="AZRPRoomAttributes" positionX="-18" positionY="27" width="128" height="165"/>
+        <element name="AZRPMessageAttributes" positionX="0" positionY="45" width="128" height="195"/>
+        <element name="AZRPMessageLocation" positionX="18" positionY="135" width="128" height="75"/>
+        <element name="AZRPFile" positionX="36" positionY="144" width="128" height="90"/>
     </elements>
 </model>

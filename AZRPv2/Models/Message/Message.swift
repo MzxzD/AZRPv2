@@ -27,10 +27,12 @@ struct Attributes: Codable {
     let roomParticipants: [Int]
     let room: Int
     let roomName: String
-    let location, file: JSONNull?
-    
+    let location: MessageLocation
+    let file: File
+
+
     enum CodingKeys: String, CodingKey {
-        case object, content
+        case object, content,file
         case messageID = "message_id"
         case time, sender
         case senderID = "sender_id"
@@ -38,33 +40,16 @@ struct Attributes: Codable {
         case roomParticipants = "room_participants"
         case room
         case roomName = "room_name"
-        case location, file
+        case location
     }
 }
 
-// MARK: Encode/decode helpers
+struct File: Codable {
+    // hash here is fileHashValue in CoreData
+    let name, hash: String
+    let url: String
+}
 
-class JSONNull: Codable, Hashable {
-    
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-    
-    public var hashValue: Int {
-        return 0
-    }
-    
-    public init() {}
-    
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
+struct MessageLocation: Codable {
+    let latitude, longitude: Double
 }
