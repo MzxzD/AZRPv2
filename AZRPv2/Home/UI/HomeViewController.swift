@@ -65,10 +65,13 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupIdentifier", for: indexPath) as! GroupTableViewCell
         let group = self.viewModel.roomMessages[indexPath.row]
-        cell.GroupNameLabel.text = group.roomObject!.attr.name
-        cell.lastMessageLabel.text = group.messages.last?.attr.content
-        cell.timeLabel.text = dayStringFromTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000)
-        cell.userNameLabel.text = (group.messages.last?.attr.sender ?? .empty) + " : "
+        if let name = group.roomObject?.type {
+            cell.GroupNameLabel.text = name
+        }
+//        cell.GroupNameLabel.text = group.roomObject!.attr?.name
+//        cell.lastMessageLabel.text = group.
+//        cell.timeLabel.text = dayStringFromTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000)
+//        cell.userNameLabel.text = (group.messages.last?.attr.sender ?? .empty) + " : "
         return cell
     }
  

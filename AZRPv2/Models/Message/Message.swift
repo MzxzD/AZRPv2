@@ -11,12 +11,12 @@
 
 import Foundation
 
-struct MessageObject: Codable {
+class MessageObject: NSObject, Codable {
     let type: String
     let attr: Attributes
 }
 
-struct Attributes: Codable {
+class Attributes: NSObject, Codable {
     let object: String
     let content: String
     let messageID: Int
@@ -27,8 +27,8 @@ struct Attributes: Codable {
     let roomParticipants: [Int]
     let room: Int
     let roomName: String
-    let location: MessageLocation
-    let file: File
+    let location: MessageLocation?
+    let file: File?
 
 
     enum CodingKeys: String, CodingKey {
@@ -44,12 +44,18 @@ struct Attributes: Codable {
     }
 }
 
-struct File: Codable {
+class File: NSObject, Codable {
     // hash here is fileHashValue in CoreData
-    let name, hash: String
+    let name, fileHashValue: String
     let url: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name, url
+        case fileHashValue = "hash"
+    }
+    
 }
 
-struct MessageLocation: Codable {
+class MessageLocation: NSObject, Codable {
     let latitude, longitude: Double
 }

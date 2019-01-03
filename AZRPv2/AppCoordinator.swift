@@ -42,7 +42,7 @@ class AppCoordinator: Coordinator{
     func saveUserData(token: String, username: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "AZRPUser", in: managedContext)!
+        let entity = NSEntityDescription.entity(forEntityName: .AZRPUser, in: managedContext)!
         let item = NSManagedObject(entity: entity, insertInto: managedContext)
         item.setValue(token, forKey: "token")
         item.setValue(username, forKey: "username")
@@ -59,13 +59,12 @@ class AppCoordinator: Coordinator{
     func FetchUserData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AZRPUser")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: .AZRPUser)
         do {
             self.user = try managedContext.fetch(fetchRequest).first
         } catch let error as NSError {
             print("Error occured while fetching items", error)
         }
-        
         
     }
 }

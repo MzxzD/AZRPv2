@@ -31,6 +31,7 @@
 		B549B77621CBF42A00629B2E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549B77021CBF42A00629B2E /* Theme.swift */; };
 		B549B77721CBF42A00629B2E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B549B77221CBF42A00629B2E /* Localizable.strings */; };
 		B549B77921CBF48400629B2E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549B77821CBF48400629B2E /* AppCoordinator.swift */; };
+		B55145F821DE27A200995B20 /* HomeViewModel Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55145F721DE27A200995B20 /* HomeViewModel Extension.swift */; };
 		B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554457C21D8DFBF006348B1 /* LoginCoordinator.swift */; };
 		B554457F21D8DFEF006348B1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554457E21D8DFEF006348B1 /* WelcomeViewController.swift */; };
 		B554458121D8DFFD006348B1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554458021D8DFFD006348B1 /* LoginViewModel.swift */; };
@@ -94,6 +95,7 @@
 		B549B77021CBF42A00629B2E /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B549B77321CBF42A00629B2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B549B77821CBF48400629B2E /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		B55145F721DE27A200995B20 /* HomeViewModel Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel Extension.swift"; sourceTree = "<group>"; };
 		B554457C21D8DFBF006348B1 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		B554457E21D8DFEF006348B1 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		B554458021D8DFFD006348B1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		B549B75721CBF41800629B2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B55145F621DE253600995B20 /* HomeViewModel Extension */,
 				B5DC874121DBAEED00FDA595 /* RoomObject */,
 				B563327D21DA962C000D0146 /* Message */,
 				B51E5E1021CCEDDB0068B642 /* Send Message */,
@@ -338,6 +341,14 @@
 				B549B77221CBF42A00629B2E /* Localizable.strings */,
 			);
 			path = Localizable;
+			sourceTree = "<group>";
+		};
+		B55145F621DE253600995B20 /* HomeViewModel Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B55145F721DE27A200995B20 /* HomeViewModel Extension.swift */,
+			);
+			path = "HomeViewModel Extension";
 			sourceTree = "<group>";
 		};
 		B554457821D8DF83006348B1 /* Welcome */ = {
@@ -654,6 +665,7 @@
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
 				B510037A21DCE8F70078230E /* WebSocketAdress.swift in Sources */,
 				B5DC874E21DBBB6900FDA595 /* TableSectionItem.swift in Sources */,
+				B55145F821DE27A200995B20 /* HomeViewModel Extension.swift in Sources */,
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B5DC875721DBBC1100FDA595 /* LoaderOverlayView.swift in Sources */,
 				B549B75E21CBF41800629B2E /* BaseRepositoryProtocol.swift in Sources */,

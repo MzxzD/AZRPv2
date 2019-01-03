@@ -10,19 +10,31 @@ import Foundation
 import UIKit
 import RxSwift
 import Starscream
+import CoreData
 
 class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 //    var downloadTrigger: ReplaySubject<Bool>
 //    var searchTrigger: ReplaySubject<Bool>
 //    var searchWithInputTrigger: ReplaySubject<Bool>
+    let appDelegate: AppDelegate
+    
+    
+    let managedContext: NSManagedObjectContext
     var socketController: WebSocketController
 //    var message: SendMessageRequest!
-    var roomMessages : [RoomMessages] = []
+    var roomMessages : [AZRPRoomMessages] = []
+    
+    
+    
+    
+    
     var dataIsReady : PublishSubject<TableRefresh>
 //    var loader: PublishSubject<Bool>
     var error: PublishSubject<String>
     
     init() {
+        self.appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
+        self.managedContext = appDelegate.persistentContainer.viewContext
         self.dataIsReady = PublishSubject<TableRefresh>()
 //        self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
 //        self.searchTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
@@ -37,7 +49,17 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         
     }
     
-
+    func loadDataFromDevice() {
+        let appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: .AZRPRoomMessages)
+        do {
+            self.roomMessages = try managedContext.fetch(fetchRequest) as? [AZRPRoomMessages] ?? []
+        } catch let error {
+            print("BOOOOO!")
+        }
+        print(self.roomMessages.first?.messages)
+    }
     
     //    func fillUpMessage(message: String) -> SendMessageRequest {
     //        var attributes = Attr()
@@ -100,13 +122,13 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 //        print("got some text: \(text)")
         let responseData = text.data(using: String.Encoding.utf8)
         let decoder = JSONDecoder()
-        var roomMessage = RoomMessages(roomObject: nil, messages: [])
-        var message: MessageObject!
+        let roomMessage = RoomMessages()
+        var message: MessageObject?
         do{
             let data = try decoder.decode(MessageObject.self, from: responseData!)
 //            guard let messageData = newMessage.attr.content else { return }
             message = data
-//            print(data)
+            print(data)
         } catch {
             
             do {
@@ -117,18 +139,29 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
             }
             
         }
-        if roomMessage.roomObject != nil {
-            // Ddodaj u postojeći element
-            self.roomMessages.append(roomMessage)
-        }else {
-            // kreirati novi table item!
-            for (index, element) in self.roomMessages.enumerated(){
-                if element.roomObject?.attr.id == message.attr.room {
-                    self.roomMessages[index].messages.append(message)
-                }
-            }
-            
+        
+        saveNewMessagesOrRooms(roomMessage: roomMessage, message: message)
+//        if roomMessage.roomObject != nil {
+//            // Ddodaj u postojeći element
+//            self.roomMessages.append(roomMessage)
+//        }else {
+//            // kreirati novi table item!
+//            for (index, element) in self.roomMessages.enumerated(){
+//
+//                guard let roomAttributeID = element.roomObject?.attr.id else { return }
+//                guard let messageRoom = message?.attr.room else { return }
+//                    if roomAttributeID == messageRoom {
+//                        self.roomMessages[index].messages.append(message!)
+//                    }
+//            }
+//
+//        }
+        do {
+            try managedContext.save()
+        }catch let error {
+            self.error.onNext(error.localizedDescription)
         }
+        loadDataFromDevice()
         self.dataIsReady.onNext(.complete)
         
 //        roomMessage.roomObject
@@ -160,6 +193,6 @@ protocol HomeViewModelProtocol {
 //    var downloadTrigger : ReplaySubject<Bool> {get}
     var dataIsReady : PublishSubject<TableRefresh> {get}
 //    var loader: PublishSubject<Bool> {get}
-    var roomMessages : [RoomMessages] {get}
+    var roomMessages : [AZRPRoomMessages] {get}
     var error: PublishSubject<String> {get}
 }

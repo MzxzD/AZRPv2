@@ -9,18 +9,18 @@
 import Foundation
 
 
-struct RoomMessages {
+class RoomMessages: NSObject {
     var roomObject: RoomObject?
-    var messages: [MessageObject]
+    var messages: [MessageObject] = []
 
 }
 
-struct RoomObject: Codable {
+class RoomObject: NSObject, Codable {
     let type: String
     let attr: RoomAttr
 }
 
-struct RoomAttr: Codable {
+class RoomAttr: NSObject, Codable {
     let object, name: String
     let id: Int
     let time: Double
