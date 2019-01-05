@@ -23,6 +23,12 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
         setupTableView()
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    self.viewModel.fetchSavedRooms()
+
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -32,7 +38,7 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.viewModel.roomMessages.count
+        return self.viewModel.realmRooms.count
     }
 
     
@@ -46,8 +52,8 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     
     private func initializeData() {
         initializeRefreshDriver(refreshObservable: viewModel.dataIsReady)
-//        initializeLoaderObserver(viewModel.loader)
         self.viewModel.getStoredRooms().disposed(by: disposeBag)
+//        initializeLoaderObserver(viewModel.loader)
         initializeError()
     }
     
@@ -65,12 +71,12 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupIdentifier", for: indexPath) as! GroupTableViewCell
-        let group = self.viewModel.roomMessages[indexPath.row]
-        print(group.messages)
-        cell.GroupNameLabel.text = group.roomObject?.attr.name ?? .empty
-        cell.lastMessageLabel.text = group.messages.last?.attr.content ?? .empty
-        cell.timeLabel.text = dayStringFromTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group.messages.last?.attr.time ?? 1) / 1000)
-        cell.userNameLabel.text = (group.messages.last?.attr.sender ?? .empty) + " : "
+        let group = self.viewModel.realmRooms[indexPath.row].messages.last
+        print(group?.content)
+        cell.GroupNameLabel.text = group?.roomName ?? .empty
+        cell.lastMessageLabel.text = group?.content ?? .empty
+        cell.timeLabel.text = dayStringFromTime(unixTime: (group?.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group?.time ?? 1) / 1000)
+        cell.userNameLabel.text = (group?.sender ?? .empty) + " : "
         return cell
     }
  

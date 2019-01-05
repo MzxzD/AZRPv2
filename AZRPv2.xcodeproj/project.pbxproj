@@ -65,6 +65,7 @@
 		B5DC876121DBBEAC00FDA595 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876021DBBEAC00FDA595 /* GroupTableViewCell.swift */; };
 		B5DC876321DBC35200FDA595 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876221DBC35200FDA595 /* HomeViewController.swift */; };
 		B5DC876521DBCA8D00FDA595 /* Double + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */; };
+		B5DDA50721E0F34900323A6E /* HomeViewModel Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		B5DC876021DBBEAC00FDA595 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		B5DC876221DBC35200FDA595 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + extensions.swift"; sourceTree = "<group>"; };
+		B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				B549B76321CBF41F00629B2E /* HomeViewModel.swift */,
+				B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				B549B76021CBF41800629B2E /* NetworkError.swift in Sources */,
 				B510037D21DCEC900078230E /* WebSocket.swift in Sources */,
 				B549B75D21CBF41800629B2E /* RestEndpoints.swift in Sources */,
+				B5DDA50721E0F34900323A6E /* HomeViewModel Extension.swift in Sources */,
 				B554458121D8DFFD006348B1 /* LoginViewModel.swift in Sources */,
 				B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */,
 				B5313A7B21CBF6440059DC66 /* UIView+Extensions.swift in Sources */,

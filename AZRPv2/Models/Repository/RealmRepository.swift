@@ -16,9 +16,6 @@ class RealmSerivce {
     let errorOccured = PublishSubject<Bool>()
     
     
-    
-    
-    
     func create<T: Object >(object: T) -> Bool {
     
         do{
@@ -43,10 +40,10 @@ class RealmSerivce {
         return true
     }
     
-    func deleteRoomObject<T: RoomMessages>(object: T) -> Bool{
+    func deleteRoomObject<T: Room>(object: T) -> Bool{
         do {
             try realm.write {
-                realm.delete(realm.objects(RoomMessages.self).filter("roomObject=%@", object.roomObject!))
+                realm.delete(realm.objects(Room.self).filter("id=%@", object.id))
             }
             
         } catch {
@@ -55,10 +52,10 @@ class RealmSerivce {
         return true
     }
     
-    func deleteMessageObject<T: MessageObject>(object: T) -> Bool{
+    func deleteMessageObject<T: Messages>(object: T) -> Bool{
         do {
             try realm.write {
-                realm.delete(realm.objects(MessageObject.self).filter("room=%@", object.attr.room))
+                realm.delete(realm.objects(Messages.self).filter("messageID=%@", object.messageID))
             }
             
         } catch {
@@ -67,13 +64,73 @@ class RealmSerivce {
         return true
     }
     
-    func getRooms() -> (Observable<[RoomMessages]>){
-        var rooms: [RoomMessages] = []
-        let realmRooms = self.realm.objects(RoomMessages.self)
+    func getRooms() -> (Observable<[Room]>){
+        var rooms: [Room] = []
+        let realmRooms = self.realm.objects(Room.self)
         for room in realmRooms {
             rooms += [room]
         }
         return Observable.just(rooms)
+    }
+    
+    func getLastRoomID() -> Int? {
+        let realmRooms = self.realm.objects(Room.self)
+        if let lastRoomID = realmRooms.last?.id {
+            return lastRoomID
+        }
+        return nil
+    }
+    
+    func getLastMessageID() -> Int? {
+        let realmRooms = self.realm.objects(Room.self)
+        var lastMessageID : Int = -1
+//        if let lastMessageID = realmRooms.last?.messages.last?.messageID{
+//            return lastMessageID
+//        }
+        for room in realmRooms {
+            for message in room.messages {
+                if lastMessageID > -1 {
+                        if message.messageID > lastMessageID {
+                            lastMessageID = message.messageID
+                    }
+                }else {
+                        lastMessageID = message.messageID
+                }
+            }
+        }
+        
+        if lastMessageID != -1 {
+            return lastMessageID
+        }else {
+            return nil
+        }
+        
+    }
+    
+    func getLastRoomAndMessageId() -> (roomID: Int?, messageID: Int?){
+        
+        let realmRooms = self.realm.objects(Room.self)
+        var roomID: Int = -1
+        var messageID : Int = -1
+        var messageTime: Double = 0
+        
+        for room in realmRooms {
+            for message in room.messages {
+                if message.time > messageTime {
+                    messageTime = message.time
+                    messageID = message.messageID
+                    roomID = room.id
+                }
+            }
+        }
+
+        if roomID == -1 || messageID == -1 {
+            return (nil, nil)
+        } else {
+            return (roomID, messageID)
+        }
+        
+        
     }
     
 }

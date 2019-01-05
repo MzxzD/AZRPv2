@@ -10,13 +10,19 @@ import Foundation
 import SocketIO
 import Starscream
 import CoreData
+import Realm
+import RealmSwift
 
 class WebSocketController {
     
     var socket: WebSocket!
+    let realmServise : RealmSerivce
+    let lastRoomIDAndlastMessageID: (roomID: Int?, messageID: Int?)
     
  
     init() {
+        self.realmServise = RealmSerivce()
+        self.lastRoomIDAndlastMessageID = self.realmServise.getLastRoomAndMessageId()
         self.socket = self.createWebSocket()
     }
     
@@ -27,7 +33,7 @@ class WebSocketController {
     private func getWebSocketURL() -> String{
         // lastRoomID , LastMessageID
         // Implement Get method from CoreData or Realm!
-        return  (WebSocketAdress().adress + self.getTokenFromData()+"/"+String(-1)+"/"+String(-1)+"/")
+        return  (WebSocketAdress().adress + self.getTokenFromData()+"/"+String(-1)+"/"+String(self.lastRoomIDAndlastMessageID.messageID ?? -1)+"/")
     }
     
    private func getTokenFromData() -> String {
