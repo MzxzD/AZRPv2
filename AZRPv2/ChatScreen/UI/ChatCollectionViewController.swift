@@ -7,10 +7,19 @@
 //
 
 import UIKit
+import AVFoundation
+import Photos
+import CoreLocation
+
 
 private let reuseIdentifier = "Cell"
 
-class ChatCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,CollectionIndexPathDelegate {
+class ChatCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,CollectionIndexPathDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+    
+    
+    var imagePicker : UIImagePickerController?
+    var locationManager = CLLocationManager()
+
     
     let alarmCollectionView:UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
@@ -81,6 +90,9 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     private func setupView() {
+        
+        self.messageInputController.imageDelegate = self
+        self.messageInputController.locationDelegate = self
         
         self.title = viewModel.room.name
         collectionView.backgroundColor = UIColor.white
@@ -209,6 +221,118 @@ extension ChatCollectionViewController {
         return CGSize(width: 10, height: 100)
     }
     
+    
+    
+    
+  
+    
+   
+    
+}
+
+
+extension ChatCollectionViewController: ImageDelegate, UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        // Dismiss the picker if the user canceled
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        for cell in self.collectionView.visibleCells {
+            let cello = cell as! ChatCollectionViewCell
+            cello.imageView.image = selectedImage
+        }
+        
+        //Set photoImageView to display the selected image.
+        //        photoImageView.image = selectedImage
+        
+        // Dismiss the picker
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    
+    private func prepareForImagePicker(){
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker?.delegate = self
+        self.imagePicker?.allowsEditing = false
+        self.imagePicker?.sourceType = .photoLibrary
+        
+    }
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized: print("Access is granted by user")
+        case .notDetermined: PHPhotoLibrary.requestAuthorization({
+            (newStatus) in print("status is \(newStatus)")
+            if newStatus == PHAuthorizationStatus.authorized {
+                 print("success") }
+            })
+            case .restricted:  print("User do not have access to photo album.")
+            case .denied:  print("User has denied the permission.")
+            }
+        }
+    
+    func getImage() {
+        prepareForImagePicker()
+        checkPermission()
+        self.viewModel.openImagePicker(imagePicker: self.imagePicker!)
+    }
+    
+    
+}
+
+extension ChatCollectionViewController: LocationDelegate {
+    func prepareForLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            print("User allowed us to access location")
+            //do whatever init activities here.
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Did location updates is called but failed getting location \(error)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let coordinate = locations.last?.coordinate else { return }
+        print(String(coordinate.latitude))
+        print(String(coordinate.longitude))
+        locationManager.stopUpdatingLocation()
+        // ADD A WAY TO SAVE LOCATION INTO MODEL AND SHOW TO USER
+    }
+    
+    func isAuthorizedtoGetUserLocation() {
+        
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse     {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    
+    func getLocation() {
+        prepareForLocation()
+        isAuthorizedtoGetUserLocation()
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locationManager.requestLocation();
+        }
+    }
     
     
 }

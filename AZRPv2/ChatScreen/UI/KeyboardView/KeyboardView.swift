@@ -12,6 +12,10 @@ import UIKit
 
 class KeyboardView : UIView {
     
+
+    weak var imageDelegate: ImageDelegate?
+    weak var locationDelegate: LocationDelegate?
+    
     let inputTextFiled : UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -64,10 +68,13 @@ class KeyboardView : UIView {
     
     @objc func addImage() {
         print("adding image")
+        self.imageDelegate?.getImage()
+   
     }
     
     @objc func addLocation() {
         print("adding location")
+        self.locationDelegate?.getLocation()
     }
     
     private func setupView() {

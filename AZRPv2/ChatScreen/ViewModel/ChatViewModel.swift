@@ -13,11 +13,16 @@ import CoreData
 class ChatViewModel: ChatViewModelProtocol {
     var room: Room
     var username: String = .empty
+    weak var coordinatorDelegate: ChatCoordinatorDelegate?
     
     init(room: Room) {
         self.room = room
         self.username = getUsernameFromData()
     }
+    func openImagePicker(imagePicker: UIImagePickerController) {
+        coordinatorDelegate?.presentImagePicker(imagePicker: imagePicker)
+    }
+    
     
     func sortChatBubbles(messagePosition: Int) -> Bool {
         let message = self.room.messages[messagePosition]
@@ -54,6 +59,8 @@ extension ChatViewModel {
 
 protocol ChatViewModelProtocol: CollectionViewCellDelegate {
     var room: Room {get}
+    func openImagePicker(imagePicker: UIImagePickerController)
+    var coordinatorDelegate: ChatCoordinatorDelegate? {get set}
 }
 
 public protocol CollectionViewCellDelegate: class {
@@ -62,6 +69,13 @@ public protocol CollectionViewCellDelegate: class {
 
 public protocol KeyBoardViewDelegate: class {
     func sendMessage()
+    
+}
+
+public protocol LocationDelegate: class {
     func getLocation()
+}
+
+public protocol ImageDelegate: class {
     func getImage()
 }

@@ -44,6 +44,7 @@
 		B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */; };
 		B563327C21DA95B2000D0146 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327B21DA95B2000D0146 /* Message.swift */; };
 		B580BB8521E6571800F6848E /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580BB8421E6571800F6848E /* KeyboardView.swift */; };
+		B580BB8721E68EB800F6848E /* ChatCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580BB8621E68EB800F6848E /* ChatCoordinatorDelegate.swift */; };
 		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
 		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
@@ -115,6 +116,7 @@
 		B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		B563327B21DA95B2000D0146 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B580BB8421E6571800F6848E /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		B580BB8621E68EB800F6848E /* ChatCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */,
+				B580BB8621E68EB800F6848E /* ChatCoordinatorDelegate.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */,
 				B5313A7B21CBF6440059DC66 /* UIView+Extensions.swift in Sources */,
 				B5DC875021DBBB6900FDA595 /* TableRefresh.swift in Sources */,
+				B580BB8721E68EB800F6848E /* ChatCoordinatorDelegate.swift in Sources */,
 				B5DC875E21DBBC2B00FDA595 /* ErrorAlertController.swift in Sources */,
 				B549B77621CBF42A00629B2E /* Theme.swift in Sources */,
 				B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */,

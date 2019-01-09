@@ -21,9 +21,18 @@ class ChatCoordinator: Coordinator{
         let homeViewModel = ChatViewModel(room: room)
         controller.viewModel = homeViewModel
         self.controller = controller
+        self.controller.viewModel.coordinatorDelegate = self
     }
     func start() {
         presenter.pushViewController(controller, animated: true)
+    }
+    
+
+}
+
+extension ChatCoordinator: ChatCoordinatorDelegate{
+    func presentImagePicker(imagePicker: UIImagePickerController) {
+        self.presenter.present(imagePicker, animated: true, completion: nil)
     }
     
     
