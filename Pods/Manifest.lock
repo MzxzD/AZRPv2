@@ -3,6 +3,7 @@ PODS:
   - BlocksKit/DynamicDelegate (2.2.5)
   - Emitter (0.0.9):
     - BlocksKit/DynamicDelegate
+  - IQKeyboardManager (6.2.0)
   - Kingfisher (5.0.1)
   - Realm (3.13.0):
     - Realm/Headers (= 3.13.0)
@@ -27,6 +28,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - IQKeyboardManager
   - Kingfisher
   - RealmSwift
   - RxAlamofire
@@ -41,6 +43,7 @@ SPEC REPOS:
     - Alamofire
     - BlocksKit
     - Emitter
+    - IQKeyboardManager
     - Kingfisher
     - Realm
     - RealmSwift
@@ -56,6 +59,7 @@ SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Emitter: cf50bf44fc8817535018fbd6c4fd576b87803e78
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
   Realm: 5edd2ee65406aef591a4f9895de5a3440e51b3d8
   RealmSwift: be5ebc7930e37cd3376b41cec7f21984528aaa16
@@ -67,6 +71,6 @@ SPEC CHECKSUMS:
   SocketIO: 52f4b693419f30f831ac567dc306575384128920
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: d95053214746951b7ea782d576a8666ffab54a64
+PODFILE CHECKSUM: bb8063eb5bbe5e07f9af53bc51223382484fb03a
 
 COCOAPODS: 1.5.3

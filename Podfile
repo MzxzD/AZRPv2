@@ -10,6 +10,7 @@ def shared_pods
   pod 'Starscream'
   pod 'SocketIO'
   pod 'RealmSwift'
+  pod 'IQKeyboardManager'
   #pod 'R.swift','~> 5.0.0.alpha'
   #pod 'BaseKit', :git => 'http://git.plavatvornica.com/factory/iosbasekit.git'
  

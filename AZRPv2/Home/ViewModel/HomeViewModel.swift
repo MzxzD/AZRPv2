@@ -16,6 +16,7 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     //    var downloadTrigger: ReplaySubject<Bool>
     //    var searchTrigger: ReplaySubject<Bool>
     //    var searchWithInputTrigger: ReplaySubject<Bool>
+    var coordinatorDelegate: HomeCoordinatorDelegate?
     var realmRooms : [Room] = []
     var realmServise = RealmSerivce()
     var refreshPublisher: ReplaySubject<Bool>
@@ -54,10 +55,6 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
 
                     let realmRooms = self.realmServise.realm.objects(Room.self)
                     for room in realmRooms {
-                        for message in room.messages{
-                            print(message.messageID)
-                            print(room.id)
-                        }
                         self.realmRooms += [room]
 //                        print(self.realmRooms.count)
                     }
@@ -148,6 +145,11 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         
     }
     
+    
+    func openChatScreen(selectedRoom: Int){
+        self.coordinatorDelegate?.openChatScreen(room: self.realmRooms[selectedRoom])
+    }
+    
     //    func sendMessage(message: String) {
     //        self.socket.write(string: prepareObjectForSending(message: fillUpMessage(message: message)))
     //    }
@@ -165,9 +167,11 @@ protocol HomeViewModelProtocol {
     var dataIsReady : PublishSubject<TableRefresh> {get}
     //    var loader: PublishSubject<Bool> {get}
     var realmRooms : [Room] {get}
+    var coordinatorDelegate: HomeCoordinatorDelegate? {get set}
     var error: PublishSubject<String> {get}
     func getStoredRooms() -> Disposable
     func fetchSavedRooms()
+    func openChatScreen(selectedRoom: Int)
 }
 
 

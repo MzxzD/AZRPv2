@@ -20,9 +20,23 @@ class HomeCoordinator: Coordinator{
         let homeViewModel = HomeViewModel()
         controller.viewModel = homeViewModel
         self.controller = controller
+        self.controller.viewModel.coordinatorDelegate = self
     }
     func start() {
         presenter.pushViewController(controller, animated: true)
+    }
+    
+    
+}
+extension HomeCoordinator: HomeCoordinatorDelegate {
+    func openChatScreen(room: Room) {
+        let chatCoordinator = ChatCoordinator(presenter: presenter, room: room)
+        addChildCoordinator(childCoordinator: chatCoordinator)
+        chatCoordinator.start()
+    }
+    
+    func viewControllerHasFinished() {
+        
     }
     
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         let appCoordinator = AppCoordinator(window: window)
         self.window = window
+        IQKeyboardManager.shared().isEnabled = true
         self.appCoordinator = appCoordinator
    //     Theme.shared.applyTheme()
         appCoordinator.start()

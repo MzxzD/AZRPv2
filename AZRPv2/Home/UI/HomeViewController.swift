@@ -18,7 +18,7 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "MIMMS AZRP"
+        self.title = "Flack"
         initializeData()
         setupTableView()
     }
@@ -72,12 +72,15 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupIdentifier", for: indexPath) as! GroupTableViewCell
         let group = self.viewModel.realmRooms[indexPath.row].messages.last
-        print(group?.content)
         cell.GroupNameLabel.text = group?.roomName ?? .empty
         cell.lastMessageLabel.text = group?.content ?? .empty
         cell.timeLabel.text = dayStringFromTime(unixTime: (group?.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group?.time ?? 1) / 1000)
         cell.userNameLabel.text = (group?.sender ?? .empty) + " : "
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.openChatScreen(selectedRoom: indexPath.row)
     }
  
 

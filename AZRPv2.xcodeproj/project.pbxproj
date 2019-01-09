@@ -43,6 +43,7 @@
 		B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */; };
 		B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */; };
 		B563327C21DA95B2000D0146 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327B21DA95B2000D0146 /* Message.swift */; };
+		B580BB8521E6571800F6848E /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580BB8421E6571800F6848E /* KeyboardView.swift */; };
 		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
 		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
@@ -66,6 +67,10 @@
 		B5DC876321DBC35200FDA595 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876221DBC35200FDA595 /* HomeViewController.swift */; };
 		B5DC876521DBCA8D00FDA595 /* Double + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */; };
 		B5DDA50721E0F34900323A6E /* HomeViewModel Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */; };
+		B5DDA50D21E13BA500323A6E /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */; };
+		B5DDA50F21E13BCD00323A6E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50E21E13BCD00323A6E /* ChatViewModel.swift */; };
+		B5DDA51121E13BF100323A6E /* ChatCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA51021E13BF100323A6E /* ChatCollectionViewController.swift */; };
+		B5DDA51321E13F0800323A6E /* ChatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA51221E13F0800323A6E /* ChatCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +114,7 @@
 		B563327721DA8716000D0146 /* LoginCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		B563327921DA8B7E000D0146 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		B563327B21DA95B2000D0146 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		B580BB8421E6571800F6848E /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -132,6 +138,10 @@
 		B5DC876221DBC35200FDA595 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + extensions.swift"; sourceTree = "<group>"; };
 		B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel Extension.swift"; sourceTree = "<group>"; };
+		B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		B5DDA50E21E13BCD00323A6E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		B5DDA51021E13BF100323A6E /* ChatCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewController.swift; sourceTree = "<group>"; };
+		B5DDA51221E13F0800323A6E /* ChatCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,8 +239,9 @@
 			isa = PBXGroup;
 			children = (
 				B554457821D8DF83006348B1 /* Welcome */,
-				B549B76B21CBF42A00629B2E /* Assets */,
 				B549B76121CBF41F00629B2E /* Home */,
+				B5DDA50821E13B4F00323A6E /* ChatScreen */,
+				B549B76B21CBF42A00629B2E /* Assets */,
 				B549B75721CBF41800629B2E /* Models */,
 				B549B75821CBF41800629B2E /* Base */,
 				B549B75421CBF3F400629B2E /* Utils */,
@@ -395,6 +406,22 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		B580BB8221E656E900F6848E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B5DDA51221E13F0800323A6E /* ChatCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B580BB8321E656FB00F6848E /* KeyboardView */ = {
+			isa = PBXGroup;
+			children = (
+				B580BB8421E6571800F6848E /* KeyboardView.swift */,
+			);
+			path = KeyboardView;
+			sourceTree = "<group>";
+		};
 		B5C136FB21DD055000B17888 /* RealmRoomObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +519,42 @@
 				B5DC876021DBBEAC00FDA595 /* GroupTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		B5DDA50821E13B4F00323A6E /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B5DDA50B21E13B8000323A6E /* Coordinator */,
+				B5DDA50A21E13B7A00323A6E /* ViewModel */,
+				B5DDA50921E13B6D00323A6E /* UI */,
+			);
+			path = ChatScreen;
+			sourceTree = "<group>";
+		};
+		B5DDA50921E13B6D00323A6E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B580BB8321E656FB00F6848E /* KeyboardView */,
+				B580BB8221E656E900F6848E /* Cell */,
+				B5DDA51021E13BF100323A6E /* ChatCollectionViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B5DDA50A21E13B7A00323A6E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B5DDA50E21E13BCD00323A6E /* ChatViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B5DDA50B21E13B8000323A6E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		B63576D7816A41B71314F85A /* Pods */ = {
@@ -600,6 +663,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Emitter/Emitter.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -616,6 +680,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlocksKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Emitter.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -642,6 +707,7 @@
 				B549B74821CBF2BF00629B2E /* AZRPv2.xcdatamodeld in Sources */,
 				B5CFA4C921CBFAA100982282 /* API.swift in Sources */,
 				B563327621DA8697000D0146 /* HomeCoordinatorDelegate.swift in Sources */,
+				B5DDA51321E13F0800323A6E /* ChatCollectionViewCell.swift in Sources */,
 				B549B76821CBF41F00629B2E /* HomeViewModel.swift in Sources */,
 				B5313A7621CBF6310059DC66 /* Coordinator.swift in Sources */,
 				B5313A7721CBF6310059DC66 /* CoordinatorDelegate.swift in Sources */,
@@ -670,6 +736,7 @@
 				B549B75621CBF3F500629B2E /* SerializationManager.swift in Sources */,
 				B5DC876521DBCA8D00FDA595 /* Double + extensions.swift in Sources */,
 				B5DC874F21DBBB6900FDA595 /* TableItem.swift in Sources */,
+				B580BB8521E6571800F6848E /* KeyboardView.swift in Sources */,
 				B554458921D9220E006348B1 /* RegisterViewModel.swift in Sources */,
 				B563327C21DA95B2000D0146 /* Message.swift in Sources */,
 				B554458521D8E219006348B1 /* UITextField + Extensions.swift in Sources */,
@@ -678,14 +745,17 @@
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
 				B510037A21DCE8F70078230E /* WebSocketAdress.swift in Sources */,
 				B5DC874E21DBBB6900FDA595 /* TableSectionItem.swift in Sources */,
+				B5DDA51121E13BF100323A6E /* ChatCollectionViewController.swift in Sources */,
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B5DC875721DBBC1100FDA595 /* LoaderOverlayView.swift in Sources */,
 				B549B75E21CBF41800629B2E /* BaseRepositoryProtocol.swift in Sources */,
 				B5DC875B21DBBC1100FDA595 /* LoaderViewModel.swift in Sources */,
+				B5DDA50D21E13BA500323A6E /* ChatCoordinator.swift in Sources */,
 				B51E5E1221CCEE0E0068B642 /* SendMessageRequest.swift in Sources */,
 				B554458321D8E135006348B1 /* LoginView.swift in Sources */,
 				B5DC876321DBC35200FDA595 /* HomeViewController.swift in Sources */,
 				B549B77521CBF42A00629B2E /* Style+Extensions.swift in Sources */,
+				B5DDA50F21E13BCD00323A6E /* ChatViewModel.swift in Sources */,
 				B549B74021CBF2BF00629B2E /* AppDelegate.swift in Sources */,
 				B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */,
 				B5DC875921DBBC1100FDA595 /* LoaderHUD.swift in Sources */,
