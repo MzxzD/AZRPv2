@@ -33,22 +33,23 @@ class WebSocketController {
     private func getWebSocketURL() -> String{
         // lastRoomID , LastMessageID
         // Implement Get method from CoreData or Realm!
-        return  (WebSocketAdress().adress + self.getTokenFromData()+"/"+String(-1)+"/"+String(self.lastRoomIDAndlastMessageID.messageID ?? -1)+"/")
+        return  (WebSocketAdress().adress + getTokenFromData()+"/"+String(-1)+"/"+String(self.lastRoomIDAndlastMessageID.messageID ?? -1)+"/")
     }
     
-   private func getTokenFromData() -> String {
-        var user: NSManagedObject!
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return .empty }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AZRPUser")
-        do {
-            user = try managedContext.fetch(fetchRequest).first
-        } catch let error as NSError {
-            print("Error occured while fetching items", error)
-        }
-        
-        return user.value(forKey: "token") as! String
-        
+ 
+    
+}
+public func getTokenFromData() -> String {
+    var user: NSManagedObject!
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return .empty }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AZRPUser")
+    do {
+        user = try managedContext.fetch(fetchRequest).first
+    } catch let error as NSError {
+        print("Error occured while fetching items", error)
     }
+    
+    return user.value(forKey: "token") as! String
     
 }

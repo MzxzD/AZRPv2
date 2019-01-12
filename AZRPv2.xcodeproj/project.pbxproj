@@ -45,6 +45,12 @@
 		B563327C21DA95B2000D0146 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563327B21DA95B2000D0146 /* Message.swift */; };
 		B580BB8521E6571800F6848E /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580BB8421E6571800F6848E /* KeyboardView.swift */; };
 		B580BB8721E68EB800F6848E /* ChatCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580BB8621E68EB800F6848E /* ChatCoordinatorDelegate.swift */; };
+		B59C0FE621E91FD500746F32 /* UIColor + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FE521E91FD500746F32 /* UIColor + Extensions.swift */; };
+		B59C0FE921E926CB00746F32 /* NewRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FE821E926CB00746F32 /* NewRoom.swift */; };
+		B59C0FEE21E9281E00746F32 /* NewRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FED21E9281E00746F32 /* NewRoomViewController.swift */; };
+		B59C0FF021E928FF00746F32 /* NewRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FEF21E928FF00746F32 /* NewRoomViewModel.swift */; };
+		B59C0FF321E94E7400746F32 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */; };
+		B59C0FF621E9577D00746F32 /* StackViewSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF521E9577D00746F32 /* StackViewSubview.swift */; };
 		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
 		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
@@ -117,6 +123,12 @@
 		B563327B21DA95B2000D0146 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B580BB8421E6571800F6848E /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		B580BB8621E68EB800F6848E /* ChatCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		B59C0FE521E91FD500746F32 /* UIColor + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extensions.swift"; sourceTree = "<group>"; };
+		B59C0FE821E926CB00746F32 /* NewRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoom.swift; sourceTree = "<group>"; };
+		B59C0FED21E9281E00746F32 /* NewRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoomViewController.swift; sourceTree = "<group>"; };
+		B59C0FEF21E928FF00746F32 /* NewRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoomViewModel.swift; sourceTree = "<group>"; };
+		B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		B59C0FF521E9577D00746F32 /* StackViewSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSubview.swift; sourceTree = "<group>"; };
 		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -215,6 +227,7 @@
 				B554458421D8E219006348B1 /* UITextField + Extensions.swift */,
 				B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */,
 				B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */,
+				B59C0FE521E91FD500746F32 /* UIColor + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -242,6 +255,7 @@
 			children = (
 				B554457821D8DF83006348B1 /* Welcome */,
 				B549B76121CBF41F00629B2E /* Home */,
+				B59C0FEA21E927DF00746F32 /* AddNewRoomScreen */,
 				B5DDA50821E13B4F00323A6E /* ChatScreen */,
 				B549B76B21CBF42A00629B2E /* Assets */,
 				B549B75721CBF41800629B2E /* Models */,
@@ -267,6 +281,7 @@
 		B549B75721CBF41800629B2E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B59C0FE721E926B600746F32 /* NewRoomObject */,
 				B5C136FB21DD055000B17888 /* RealmRoomObject */,
 				B5DC874121DBAEED00FDA595 /* RoomObject */,
 				B563327D21DA962C000D0146 /* Message */,
@@ -422,6 +437,57 @@
 				B580BB8421E6571800F6848E /* KeyboardView.swift */,
 			);
 			path = KeyboardView;
+			sourceTree = "<group>";
+		};
+		B59C0FE721E926B600746F32 /* NewRoomObject */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FE821E926CB00746F32 /* NewRoom.swift */,
+			);
+			path = NewRoomObject;
+			sourceTree = "<group>";
+		};
+		B59C0FEA21E927DF00746F32 /* AddNewRoomScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FEC21E9280200746F32 /* UI */,
+				B59C0FEB21E927F600746F32 /* ViewModel */,
+			);
+			path = AddNewRoomScreen;
+			sourceTree = "<group>";
+		};
+		B59C0FEB21E927F600746F32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FEF21E928FF00746F32 /* NewRoomViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B59C0FEC21E9280200746F32 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FF421E9574100746F32 /* StackView */,
+				B59C0FF121E94E5D00746F32 /* Cell */,
+				B59C0FED21E9281E00746F32 /* NewRoomViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B59C0FF121E94E5D00746F32 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B59C0FF421E9574100746F32 /* StackView */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FF521E9577D00746F32 /* StackViewSubview.swift */,
+			);
+			path = StackView;
 			sourceTree = "<group>";
 		};
 		B5C136FB21DD055000B17888 /* RealmRoomObject */ = {
@@ -713,6 +779,7 @@
 				B5DDA51321E13F0800323A6E /* ChatCollectionViewCell.swift in Sources */,
 				B549B76821CBF41F00629B2E /* HomeViewModel.swift in Sources */,
 				B5313A7621CBF6310059DC66 /* Coordinator.swift in Sources */,
+				B59C0FF021E928FF00746F32 /* NewRoomViewModel.swift in Sources */,
 				B5313A7721CBF6310059DC66 /* CoordinatorDelegate.swift in Sources */,
 				B5313A7C21CBF6440059DC66 /* String+Extensions.swift in Sources */,
 				B549B76021CBF41800629B2E /* NetworkError.swift in Sources */,
@@ -735,6 +802,7 @@
 				B5CFA4CF21CBFAD000982282 /* ErrorAlert.swift in Sources */,
 				B549B75F21CBF41800629B2E /* RestManager.swift in Sources */,
 				B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */,
+				B59C0FE621E91FD500746F32 /* UIColor + Extensions.swift in Sources */,
 				B5DC874621DBBACB00FDA595 /* TableRefreshView.swift in Sources */,
 				B563327421DA27B9000D0146 /* NSAttributedString+Extensions.swift in Sources */,
 				B549B75621CBF3F500629B2E /* SerializationManager.swift in Sources */,
@@ -745,10 +813,12 @@
 				B563327C21DA95B2000D0146 /* Message.swift in Sources */,
 				B554458521D8E219006348B1 /* UITextField + Extensions.swift in Sources */,
 				B554457D21D8DFBF006348B1 /* LoginCoordinator.swift in Sources */,
+				B59C0FE921E926CB00746F32 /* NewRoom.swift in Sources */,
 				B563327821DA8716000D0146 /* LoginCoordinatorDelegate.swift in Sources */,
 				B5CFA4CE21CBFAD000982282 /* DataWrapper.swift in Sources */,
 				B510037A21DCE8F70078230E /* WebSocketAdress.swift in Sources */,
 				B5DC874E21DBBB6900FDA595 /* TableSectionItem.swift in Sources */,
+				B59C0FF321E94E7400746F32 /* UserTableViewCell.swift in Sources */,
 				B5DDA51121E13BF100323A6E /* ChatCollectionViewController.swift in Sources */,
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B5DC875721DBBC1100FDA595 /* LoaderOverlayView.swift in Sources */,
@@ -763,7 +833,9 @@
 				B549B74021CBF2BF00629B2E /* AppDelegate.swift in Sources */,
 				B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */,
 				B5DC875921DBBC1100FDA595 /* LoaderHUD.swift in Sources */,
+				B59C0FF621E9577D00746F32 /* StackViewSubview.swift in Sources */,
 				B549B76A21CBF41F00629B2E /* HomeCoordinator.swift in Sources */,
+				B59C0FEE21E9281E00746F32 /* NewRoomViewController.swift in Sources */,
 				B554457F21D8DFEF006348B1 /* WelcomeViewController.swift in Sources */,
 				B5DC875821DBBC1100FDA595 /* SpinnerView.swift in Sources */,
 				B51E5E0F21CCDB4F0068B642 /* Users.swift in Sources */,

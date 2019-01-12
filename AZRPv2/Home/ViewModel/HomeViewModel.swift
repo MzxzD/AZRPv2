@@ -72,10 +72,11 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         self.refreshPublisher.onNext(true)
     }
     
+
     
-    
-    
-    
+    func presentAddNewRoomView() {
+        coordinatorDelegate?.presentNewRoomScreen(socket:self.socketController )
+    }
     //    func fillUpMessage(message: String) -> SendMessageRequest {
     //        var attributes = Attr()
     //        attributes.room = 1
@@ -131,6 +132,9 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
+        print("trying to recoonect")
+//        socketController.socket.connect()
+        
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
@@ -147,19 +151,8 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     
     
     func openChatScreen(selectedRoom: Int){
-        self.coordinatorDelegate?.openChatScreen(room: self.realmRooms[selectedRoom])
+        self.coordinatorDelegate?.openChatScreen(room: self.realmRooms[selectedRoom], webSocketController: self.socketController)
     }
-    
-    //    func sendMessage(message: String) {
-    //        self.socket.write(string: prepareObjectForSending(message: fillUpMessage(message: message)))
-    //    }
-    
-    //    func prepareObjectForSending(message: SendMessageRequest) -> String {
-    //        let jsonEncoder = JSONEncoder()
-    //        let jsonData = try! jsonEncoder.encode(message)
-    //        let json = String(data: jsonData, encoding: String.Encoding.utf8)
-    //        return json ?? .empty
-    //    }
 }
 
 protocol HomeViewModelProtocol {
@@ -172,6 +165,7 @@ protocol HomeViewModelProtocol {
     func getStoredRooms() -> Disposable
     func fetchSavedRooms()
     func openChatScreen(selectedRoom: Int)
+    func presentAddNewRoomView()
 }
 
 

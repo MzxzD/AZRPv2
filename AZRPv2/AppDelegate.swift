@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appCoordinator = AppCoordinator(window: window)
         self.window = window
         IQKeyboardManager.shared().isEnabled = true
+        UIApplication.shared.isStatusBarHidden = false
+        application.statusBarStyle = .lightContent 
         self.appCoordinator = appCoordinator
    //     Theme.shared.applyTheme()
         appCoordinator.start()

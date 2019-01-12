@@ -12,6 +12,9 @@ import RxSwift
 
 class WelcomeViewController: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     let disposeBag = DisposeBag()
     var loginView: LoginView!
     var registerView: RegistrationView!
@@ -59,6 +62,7 @@ class WelcomeViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
+        
         view.addSubviews(loginButton, registerButton)
         //        loginView.alpha = 0
         //        registerView.alpha = 0

@@ -12,7 +12,9 @@ import Starscream
 
 class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProtocol  {
 
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     let disposeBag = DisposeBag()
     var viewModel: HomeViewModelProtocol!
     
@@ -43,11 +45,15 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
 
     
     private func setupTableView() {
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        self.navigationItem.rightBarButtonItem = add
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(GroupTableViewCell.self, forCellReuseIdentifier: "GroupIdentifier")
 //        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 75
+        tableView.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1)
+        tableView.separatorStyle = .none
     }
     
     private func initializeData() {
@@ -68,6 +74,9 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
             .disposed(by: disposeBag)
     }
     
+    @objc func addTapped() {
+        viewModel.presentAddNewRoomView()
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupIdentifier", for: indexPath) as! GroupTableViewCell
@@ -76,6 +85,9 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
         cell.lastMessageLabel.text = group?.content ?? .empty
         cell.timeLabel.text = dayStringFromTime(unixTime: (group?.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group?.time ?? 1) / 1000)
         cell.userNameLabel.text = (group?.sender ?? .empty) + " : "
+        cell.roomLogoLabel.text = String((group?.roomName?.first)!)
+        cell.layer.borderColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1).cgColor
+        cell.layer.borderWidth = 3
         return cell
     }
     
@@ -83,6 +95,9 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
         self.viewModel.openChatScreen(selectedRoom: indexPath.row)
     }
  
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
 
     /*
     // Override to support conditional editing of the table view.

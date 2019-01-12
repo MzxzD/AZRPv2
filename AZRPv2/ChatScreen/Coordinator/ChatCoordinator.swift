@@ -13,12 +13,11 @@ class ChatCoordinator: Coordinator{
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
     let controller: ChatCollectionViewController
-    // later remove token because its saved in phones memory
-    init (presenter: UINavigationController, room: Room){
+    init (presenter: UINavigationController, room: Room, websocet: WebSocketController){
         //        presenter.viewControllers.removeAll()
         self.presenter = presenter
         let controller = ChatCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let homeViewModel = ChatViewModel(room: room)
+        let homeViewModel = ChatViewModel(room: room, socket: websocet)
         controller.viewModel = homeViewModel
         self.controller = controller
         self.controller.viewModel.coordinatorDelegate = self

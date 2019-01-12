@@ -29,11 +29,22 @@ class HomeCoordinator: Coordinator{
     
 }
 extension HomeCoordinator: HomeCoordinatorDelegate {
-    func openChatScreen(room: Room) {
-        let chatCoordinator = ChatCoordinator(presenter: presenter, room: room)
+    func presentNewRoomScreen(socket: WebSocketController) {
+        let newRoomController = NewRoomViewController()
+        let VM = NewRoomViewModel(socket: socket)
+        newRoomController.viewModel = VM
+        
+        newRoomController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        presenter.present(newRoomController, animated: true)
+    }
+    
+    func openChatScreen(room: Room, webSocketController: WebSocketController) {
+        let chatCoordinator = ChatCoordinator(presenter: presenter, room: room, websocet: webSocketController)
         addChildCoordinator(childCoordinator: chatCoordinator)
         chatCoordinator.start()
     }
+    
     
     func viewControllerHasFinished() {
         

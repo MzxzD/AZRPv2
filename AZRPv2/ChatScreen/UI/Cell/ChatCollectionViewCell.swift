@@ -10,13 +10,11 @@ import UIKit
 
 class ChatCollectionViewCell: UICollectionViewCell {
 
-//    weak var indexPathDelegate: CollectionIndexPathDelegate?
     weak var collectionCellDelegate: CollectionViewCellDelegate?
     var messagePosition: Int?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        setupView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,7 +23,7 @@ class ChatCollectionViewCell: UICollectionViewCell {
     
     var MessageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(20))
+        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(15))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.numberOfLines = 0
@@ -35,14 +33,14 @@ class ChatCollectionViewCell: UICollectionViewCell {
     
     var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: CGFloat(20))
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: CGFloat(15))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     var timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(15))
+        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(10))
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -80,24 +78,16 @@ class ChatCollectionViewCell: UICollectionViewCell {
     func setupView() {
         
         self.addSubview(textBubbleView)
-//        addSubview(textBubbleView)
         self.textBubbleView.addSubviews(MessageLabel,userNameLabel,timeLabel, locationButton, imageView)
-      //  addSubview(userNameLabel, userNameLabel, timeLabel)
-//        self.contentView.backgroundColor = UIColor.clear
-        var chatBubblePositionBool: Bool = false
-        
+        var isMessageFromSender: Bool!
         if self.messagePosition != nil{
             guard let positionBool = self.collectionCellDelegate?.sortChatBubbles(messagePosition: self.messagePosition!) else {return}
-            chatBubblePositionBool = positionBool
+            isMessageFromSender = positionBool
 
         }
 
-
-        
-        
-        if chatBubblePositionBool {
+        if isMessageFromSender {
             textBubbleView.backgroundColor = UIColor(red: 63/255, green: 81/255, blue: 181/255, alpha: 1)
-//            contentView.backgroundColor = UIColor.blue
             MessageLabel.textColor = UIColor.white
             userNameLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
@@ -108,93 +98,35 @@ class ChatCollectionViewCell: UICollectionViewCell {
             timeLabel.textColor = UIColor.black
         }
         
-        setupConstraints(chatBubblePositionBool: true)
+        setupConstraints(isMessageSender: isMessageFromSender)
 
     }
     
-    func setupLayout(room: Room, indexPath: IndexPath, isSender: Bool, viewFrame: CGFloat) {
-        
-        let messageText = room.messages[indexPath.row].content
-        let messageTime = String(room.messages[indexPath.row].time)
-        let messageSender = room.messages[indexPath.row].sender
-        let size = CGSize(width: 250, height: 1000)
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        
-        let estimatedFrameForSender = NSString(string: messageSender ?? .empty).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 20)!], context: nil)
-        
-        
-        let estimatedFrameForTime = NSString(string: messageTime).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 15)!], context: nil)
-        
-        
-        let estimatedFrameForText = NSString(string: messageText ?? "khgfjghjdjfdhfdhfdh").boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 20)!], context: nil)
-        
-        
-         let sumSize = CGRect(x: 0, y: 0, width: estimatedFrameForText.width + estimatedFrameForTime.width + estimatedFrameForSender.width , height: estimatedFrameForText.height + estimatedFrameForTime.height + estimatedFrameForSender.height)
-        
-//        let cgPointMessage = CGPoint(x: 8, y: 0)
-//        let cgPoint = CGPoint(x: 0, y: 0)
-//        let senderSize = createCGSizeForCell(indexPath: indexPath, text: userNameLabel.text ?? .empty)
-//        //        cell.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 0)
-//        textBubbleView.frame = CGRect(origin: cgPoint, size: createCGSizeForCell(indexPath: indexPath))
-//        MessageLabel.frame = CGRect(origin: cgPointMessage, size: createCGSizeForCell(indexPath: indexPath, text: cell.MessageLabel.text ?? .empty))
-//        userNameLabel.frame = CGRect(origin: CGPoint(x: senderSize.width, y: 0), size: createCGSizeForCell(indexPath: indexPath, text: cell.userNameLabel.text ?? .empty))
-//        contentView.frame.size.width = viewFrame
-//
-//        MessageLabel.frame = CGRect(x: viewFrame - estimatedFrameForText.width - 32 , y: 0, width: estimatedFrameForText.width, height: estimatedFrameForText.height)
-        
-//        textBubbleView.frame = CGRect(x: viewFrame - sumSize.width  , y: 20, width: estimatedFrameForText.width, height: sumSize.height + 50)
-//
-//        userNameLabel.frame = CGRect(x: viewFrame - estimatedFrameForSender.width - 32 , y: 0, width: estimatedFrameForSender.width, height: estimatedFrameForSender.height)
-//
-//        timeLabel.frame = CGRect(x: viewFrame - estimatedFrameForTime.width - 32 , y: 0, width: estimatedFrameForTime.width, height: estimatedFrameForTime.height)
-//        self.contentView.frame = CGRect()
-  
-    }
-    
-//    override func layoutIfNeeded() {
-//        self.setupView()
-//    }
-    
-    
-    private func setupConstraints(chatBubblePositionBool: Bool){
-//
+    private func setupConstraints(isMessageSender: Bool){
         var constraints = [
-            textBubbleView.widthAnchor.constraint(equalToConstant: 250),
-            textBubbleView.heightAnchor.constraint(equalToConstant: 200),
-//            textBubbleView.topAnchor.constraint(equalTo: topAnchor, constant: 3),
-//            textBubbleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            textBubbleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-//
+            textBubbleView.widthAnchor.constraint(equalToConstant: 170),
+            textBubbleView.heightAnchor.constraint(equalToConstant: 170),
+            
             userNameLabel.topAnchor.constraint(equalTo: textBubbleView.topAnchor, constant: 8),
             userNameLabel.leadingAnchor.constraint(equalTo: textBubbleView.leadingAnchor, constant: 8),
-//            userNameLabel.trailingAnchor.constraint(equalTo: textBubbleView.leadingAnchor, constant: 0),
             
             imageView.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 8),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            imageView.bottomAnchor.constraint(equalTo: MessageLabel.topAnchor, constant: -8),
+            imageView.centerXAnchor.constraint(equalTo: textBubbleView.centerXAnchor),
             
             MessageLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 8),
             MessageLabel.leadingAnchor.constraint(equalTo:  textBubbleView.leadingAnchor, constant: 20),
             MessageLabel.trailingAnchor.constraint(equalTo: textBubbleView.trailingAnchor , constant: -8),
 
-
-            //
-//
             locationButton.heightAnchor.constraint(equalToConstant: 35),
             locationButton.widthAnchor.constraint(equalToConstant: 35),
             locationButton.topAnchor.constraint(equalTo: userNameLabel.topAnchor, constant: 25),
             locationButton.leadingAnchor.constraint(equalTo: textBubbleView.leadingAnchor, constant: 8),
-            //            locationButton.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: -8),
-//            locationButton.bottomAnchor.constraint(equalTo: textBubbleView.bottomAnchor, constant: -8),
 
-            
             timeLabel.trailingAnchor.constraint(equalTo: textBubbleView.trailingAnchor, constant: -20),
             timeLabel.bottomAnchor.constraint(equalTo: textBubbleView.bottomAnchor, constant: -8)
-            
- 
-            
+
         ]
-        constraints[7].priority = UILayoutPriority(999)
+        constraints[6].priority = UILayoutPriority(999)
         if !self.imageView.isHidden {
             constraints += [
             
@@ -206,7 +138,28 @@ class ChatCollectionViewCell: UICollectionViewCell {
             constraints.last?.priority = UILayoutPriority(1000)
         }
         
+        if isMessageSender{
+            constraints.append(textBubbleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10))
+        }else {
+            constraints.append(textBubbleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10))
+        }
+        
         NSLayoutConstraint.activate(constraints)
         
     }
+    
+//    override func layoutIfNeeded() {
+//        self.setupView()
+//    }
+
+//    override func setNeedsLayout() {
+//        var isMessageFromSender: Bool = false
+//
+//        if self.messagePosition != nil{
+//            guard let positionBool = self.collectionCellDelegate?.sortChatBubbles(messagePosition: self.messagePosition!) else {return}
+//            isMessageFromSender = positionBool
+//
+//        }
+//        setupConstraints(isMessageSender: isMessageFromSender)
+//    }
 }
