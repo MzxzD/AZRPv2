@@ -51,6 +51,7 @@
 		B59C0FF021E928FF00746F32 /* NewRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FEF21E928FF00746F32 /* NewRoomViewModel.swift */; };
 		B59C0FF321E94E7400746F32 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */; };
 		B59C0FF621E9577D00746F32 /* StackViewSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF521E9577D00746F32 /* StackViewSubview.swift */; };
+		B59C0FF821E9E44800746F32 /* RegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF721E9E44800746F32 /* RegisterAPI.swift */; };
 		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
 		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
@@ -129,6 +130,7 @@
 		B59C0FEF21E928FF00746F32 /* NewRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRoomViewModel.swift; sourceTree = "<group>"; };
 		B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		B59C0FF521E9577D00746F32 /* StackViewSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSubview.swift; sourceTree = "<group>"; };
+		B59C0FF721E9E44800746F32 /* RegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAPI.swift; sourceTree = "<group>"; };
 		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 			children = (
 				B5C136F921DCF89F00B17888 /* RealmRepository.swift */,
 				B5CFA4C821CBFAA100982282 /* API.swift */,
+				B59C0FF721E9E44800746F32 /* RegisterAPI.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				B549B77521CBF42A00629B2E /* Style+Extensions.swift in Sources */,
 				B5DDA50F21E13BCD00323A6E /* ChatViewModel.swift in Sources */,
 				B549B74021CBF2BF00629B2E /* AppDelegate.swift in Sources */,
+				B59C0FF821E9E44800746F32 /* RegisterAPI.swift in Sources */,
 				B563327A21DA8B7E000D0146 /* WelcomeViewModel.swift in Sources */,
 				B5DC875921DBBC1100FDA595 /* LoaderHUD.swift in Sources */,
 				B59C0FF621E9577D00746F32 /* StackViewSubview.swift in Sources */,

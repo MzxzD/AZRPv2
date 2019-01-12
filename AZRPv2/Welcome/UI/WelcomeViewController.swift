@@ -135,6 +135,16 @@ class WelcomeViewController: UIViewController {
             loginView = nil
         }
         self.registerView = RegistrationView()
+        let viewModel  = RegisterViewModel()
+        self.registerView.registerViewModel = viewModel
+        registerView.registerViewModel.getDataFromApi().disposed(by: disposeBag)
+        registerView.registerViewModel.error
+            .asObservable()
+            .map { text -> String? in
+                return Optional(text)
+            }
+            .bind(to: registerView.usernameErrorLabel.rx.text)
+            .disposed(by: disposeBag)
         registerView.alpha = 0
         //        loginButton.fadeOut()
         //        registerButton.fadeOut()

@@ -93,6 +93,34 @@ class APIService {
                 return DataWrapper(data:APIResponse, error: nil)
             })
     }
+    
+    
+    func doesUserAlreadyExists(username: String) -> Observable<DataWrapper<Exists>> {
+        let url = "http://0.0.0.0:8000/api/auth/user-exists/?username="+username
+        
+        return RxAlamofire
+            .data(.get, url)
+            .map({ (response) -> DataWrapper<Exists> in
+                let decoder = JSONDecoder()
+                print(response)
+                var APIResponse: Exists!
+                let responseJSON = response
+                do {
+                    let data = try decoder.decode(Exists.self, from: responseJSON)
+                    APIResponse = data
+                }catch let error {
+                    print(error.localizedDescription)
+                    return DataWrapper(data: APIResponse, error: error.localizedDescription)
+                }
+                
+                return DataWrapper(data: APIResponse, error: nil)
+            })
+    }
+    
 }
 
 
+struct Exists: Codable {
+    let username: String
+    let exists: Bool
+}
