@@ -91,8 +91,6 @@ class RegistrationView: UIView {
         }
     }
     
-    
-    
     @objc func atemptToRegister() {
         
         if usernameTextField.text == .empty {
@@ -113,11 +111,6 @@ class RegistrationView: UIView {
                 self.passwordErrorLabel.text = .empty
             }
         }
-        
-        
-        // If UserExists
-        
-        
         if (passwordTextField.text?.count)! < 6 {
             self.passwordErrorLabel.text = "Password has to have 6 characters"
             
@@ -126,25 +119,20 @@ class RegistrationView: UIView {
             }
         }
         
-        
         if usernameTextField.text != .empty && passwordTextField.text != .empty {
-            registerViewModel.doesUserAlreadyExists(registerName: usernameTextField.text!, completion: { user in
+            registerViewModel.doesUserAlreadyExists(registerName: usernameTextField.text!, completion: { [unowned self] user in
                  if user.exists {
                     self.usernameErrorLabel.text = "User allready exists"
                     print("User exists")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.usernameErrorLabel.text = .empty
                     }
-
                 }else {
-                    print("waaaa")
-
+                    self.registerViewModel.startRegister(username: self.usernameTextField.text!, password: self.passwordTextField.text!)
                 }
             })
             }
         }
-        
-        
     
     private func setupUI() {
         self.backgroundColor = UIColor.white
@@ -181,7 +169,4 @@ class RegistrationView: UIView {
             ]
         NSLayoutConstraint.activate(constraints)
     }
-    
-    
-
 }

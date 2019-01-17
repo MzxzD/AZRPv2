@@ -64,18 +64,16 @@ class NewRoomViewModel: NewRoomViewModelProtocol {
     }
     
     func createRoom(roomName: String) {
-//        socket.socket.write(string: )
         self.selectedRoomName = roomName
         if validateInput() {
             let newRoom = prepareMessageToSend()
             let encodedMessage = prepareObjectForSending(object: newRoom)
             print(encodedMessage)
+            socket.socket.write(string: encodedMessage)
+
         }else {
             error.onNext("Error, Some InputFields are empty")
         }
-        
-      
-        
         
     }
     

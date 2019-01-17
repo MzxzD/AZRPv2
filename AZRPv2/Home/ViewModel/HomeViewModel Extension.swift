@@ -45,7 +45,7 @@ extension HomeViewModel {
         let jsonDecoder = JSONDecoder()
         var message: MessageObject? = nil
         var room: RoomObject? = nil
-        
+        let userID = getUserIDFromData()
         
         do{
             let data = try jsonDecoder.decode(MessageObject.self, from: data)
@@ -64,24 +64,42 @@ extension HomeViewModel {
             
         }
         
-        return (message, room)
+        var messageToReturn: MessageObject?
+        
+        if let filteredMessage = message {
+            for id in filteredMessage.attr.roomParticipants{
+                if userID == id {
+                    messageToReturn = message
+                }
+            }
+        }
+        
+        var roomToReturn : RoomObject?
+        if let filteredRoom = room {
+            for id in filteredRoom.attr.participants {
+                if userID == id {
+                    roomToReturn = room
+                }
+            }
+        }
+        
+        return (messageToReturn, roomToReturn)
         
     }
     
     
     func saveRecivedMessageOrRoom(data: Data?) {
-        let messageRoomTuple: (message: MessageObject?, room:RoomObject?) = serialize(data: data!)
         
+        
+        let messageRoomTuple: (message: MessageObject?, room:RoomObject?) = serialize(data: data!)
         switch messageRoomTuple {
         case (nil, nil):
-            self.error.onNext("Parsing Failed")
+            print("No new item for you")
         default:
             // NEW ROOM HAS BEEN ADDED
             if messageRoomTuple.message == nil {
                 updateRoomObject(websocketRoom: messageRoomTuple.room!)
                 self.refreshPublisher.onNext(true)
-                
-                
             }else {
                 // NEW MESSAGE IN EXISTING ROOM
                 updateMessages(websocketMessage: messageRoomTuple.message!)
@@ -114,7 +132,7 @@ extension HomeViewModel {
     func updateMessages (websocketMessage: MessageObject){
         //        var message: MessageObject!
         var newRoom : Room!
-        for (index, element) in self.realmRooms.enumerated() {
+        for (_, element) in self.realmRooms.enumerated() {
             if element.id == websocketMessage.attr.room {
                 self.realmServise.realm.beginWrite()
                 newRoom = element

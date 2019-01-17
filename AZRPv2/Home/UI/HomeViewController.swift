@@ -85,7 +85,7 @@ class HomeViewController: UITableViewController,TableRefreshView,LoaderViewProto
         cell.lastMessageLabel.text = group?.content ?? .empty
         cell.timeLabel.text = dayStringFromTime(unixTime: (group?.time ?? 1) / 1000) + " " +  timeStringFromUnixTime(unixTime: (group?.time ?? 1) / 1000)
         cell.userNameLabel.text = (group?.sender ?? .empty) + " : "
-        cell.roomLogoLabel.text = String((group?.roomName?.first)!)
+        cell.roomLogoLabel.text = String((group?.roomName?.first ?? Character(" ")))
         cell.layer.borderColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1).cgColor
         cell.layer.borderWidth = 3
         return cell

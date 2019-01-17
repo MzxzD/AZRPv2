@@ -76,6 +76,7 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         self.view.backgroundColor = UIColor.white
         self.messageInputController.imageDelegate = self
         self.messageInputController.locationDelegate = self
+        self.messageInputController.viewModelDelegate = self.viewModel
         
         self.title = viewModel.room.name
         collectionView.backgroundColor = UIColor.white
@@ -102,8 +103,6 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         let item = self.collectionView(self.collectionView!, numberOfItemsInSection: 0) - 1
         let lastItemIndex = NSIndexPath(item: item, section: 0)
         self.collectionView?.scrollToItem(at: lastItemIndex as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-        
-        
     }
     
 }
@@ -171,11 +170,10 @@ extension ChatCollectionViewController: ImageDelegate, UIImagePickerControllerDe
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        for cell in self.collectionView.visibleCells {
-            let cello = cell as! ChatCollectionViewCell
-            cello.imageView.image = selectedImage
-        }
-        
+        self.messageInputController.imageButton.imageView?.image = selectedImage
+        self.messageInputController.imageButton.setImage( #imageLiteral(resourceName: "imageHighlited"), for: .highlighted)
+        self.messageInputController.imageButton.isHighlighted = true
+        self.messageInputController.image = selectedImage
         //Set photoImageView to display the selected image.
         //        photoImageView.image = selectedImage
         
@@ -240,6 +238,9 @@ extension ChatCollectionViewController: LocationDelegate {
         print(String(coordinate.longitude))
         locationManager.stopUpdatingLocation()
         // ADD A WAY TO SAVE LOCATION INTO MODEL AND SHOW TO USER
+        self.messageInputController.location = Coordinates(longitude: coordinate.longitude , latitude: coordinate.latitude )
+        self.messageInputController.gpsButton.setImage( #imageLiteral(resourceName: "GpsHighlited"), for: .highlighted)
+        self.messageInputController.gpsButton.isHighlighted = true
     }
     
     func isAuthorizedtoGetUserLocation() {

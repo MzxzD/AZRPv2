@@ -41,7 +41,7 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
         self.socketController = WebSocketController()
         self.socketController.socket.delegate = self
         self.socketController.socket.connect()
-        //        self.token = getTokenFromData()
+//                self.token = getTokenFromData()
         
     }
     
@@ -60,6 +60,11 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
                     }
 //                                        self.refreshView.onNext(TableRefresh.complete)
                     //                    self.refreshPublisher.onNext(false)
+                    self.realmRooms = self.realmRooms.sorted(by: { (roomOne, roomTwo) -> Bool in
+                        guard let firstTime = roomOne.messages.last?.time else { return false }
+                        guard let secondTime = roomTwo.messages.last?.time else { return false }
+                        return firstTime > secondTime
+                    })
                     self.dataIsReady.onNext(.complete)
                 }
             })
@@ -140,8 +145,10 @@ class HomeViewModel: HomeViewModelProtocol, WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         //        print("got some text: \(text)")
         let responseData = text.data(using: String.Encoding.utf8)
-        print(text)
-//        saveRecivedMessageOrRoom(data: responseData)
+//        print(text)
+        
+//         filter out
+        saveRecivedMessageOrRoom(data: responseData)
         }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {

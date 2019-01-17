@@ -12,9 +12,12 @@ import UIKit
 
 class KeyboardView : UIView {
     
-
+    weak var viewModelDelegate: SendMessageDelegate?
     weak var imageDelegate: ImageDelegate?
     weak var locationDelegate: LocationDelegate?
+    
+    var image : UIImage?
+    var location: Coordinates?
     
     let inputTextFiled : UITextField = {
         let field = UITextField()
@@ -64,6 +67,7 @@ class KeyboardView : UIView {
     
     @objc func sendMessage() {
         print("sending")
+        self.viewModelDelegate?.sendMessage(message: inputTextFiled.text, image: image, coordinates: location)
     }
     
     @objc func addImage() {
