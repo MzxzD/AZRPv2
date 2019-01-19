@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 import CoreLocation
-
+import RxSwift
 
 private let reuseIdentifier = "Cell"
 
@@ -19,7 +19,8 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+    let delegate = UIApplication.shared.delegate as! AppDelegate
+    let disposeBag = DisposeBag()
     var imagePicker : UIImagePickerController?
     var locationManager = CLLocationManager()
 
@@ -32,6 +33,8 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
     var viewModel: ChatViewModelProtocol!
     override func viewDidLoad() {
         super.viewDidLoad()
+//        initializeReloadALL()
+        newEventListener()
         setupView()
     }
     
@@ -39,6 +42,44 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         super.viewDidAppear(animated)
         scrollToBottom()
     }
+    
+    func initializeData() {
+//        let realm
+    }
+    
+    
+    func newEventListener(){
+        let newMessage = self.delegate.socketController.newMessage
+        newMessage
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (event) in
+                if event {
+                    // TODO: CREATE FUNC IN VM TO SEE IF THAT's FOR HERE if NOT NOITIFICATION
+                    self.viewModel.reFetchDataFromRealm()
+                    self.collectionView.reloadData()
+                    self.scrollToBottom()
+//                    self.viewModel.fetchSavedRooms()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
+        let newRoom = self.delegate.socketController.newRoom
+        newRoom
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (event) in
+                if event {
+                    // TODO: CREATE NOITIFICATION FOR THIS SHIT
+//                    self.collectionView.reloadData()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -46,14 +87,15 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.room.messages.count
+        return self.viewModel.messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ChatCollectionViewCell
         cell.collectionCellDelegate = viewModel
         cell.messagePosition = indexPath.row
-        let messageItem = self.viewModel.room.messages[indexPath.row]
+        
+        let messageItem = self.viewModel.messages[indexPath.row]
         cell.MessageLabel.text = messageItem.content
         cell.userNameLabel.text = messageItem.sender
         cell.timeLabel.text = dayStringFromTime(unixTime: (messageItem.time ) / 1000) + " " +  timeStringFromUnixTime(unixTime: (messageItem.time) / 1000)
@@ -61,15 +103,38 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return createCGSizeForCell(indexPath: indexPath)
+
 //         return CGSize(width: view.bounds.width, height: 200)
         
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
     }
     
     func getIndexPath(forTableCell cell: ChatCollectionViewCell) -> IndexPath? {
         let returnvalue = collectionView.indexPath(for: cell)
         return returnvalue
+    }
+    
+    
+    private func initializeReloadALL(){
+        let reload = self.viewModel.reinitALL
+        reload
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {  (event) in
+                if event {
+                    self.messageInputController = KeyboardView(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+                    self.setupView()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
     }
     
     private func setupView() {
@@ -78,7 +143,7 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         self.messageInputController.locationDelegate = self
         self.messageInputController.viewModelDelegate = self.viewModel
         
-        self.title = viewModel.room.name
+        self.title = viewModel.messages.last?.roomName
         collectionView.backgroundColor = UIColor.white
         
         messageInputController.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +160,7 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -56).isActive = true
+        self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53).isActive = true
 
     }
     
@@ -113,42 +178,33 @@ protocol CollectionIndexPathDelegate: class {
 }
 
 extension ChatCollectionViewController {
-    func createCGSizeForCell(indexPath: IndexPath, text: String) -> CGSize {
-        let size = CGSize(width: 250, height: 1000)
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let estimatedFrameForText = NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 20)!], context: nil)
-        
-        return CGSize(width: estimatedFrameForText.width, height: (estimatedFrameForText.height))
-        //        }
-        //        return CGSize(width: 10, height: 100)
-    }
-    
     func createCGSizeForCell(indexPath: IndexPath) -> CGSize {
-        
-        if let messageText = viewModel.room.messages[indexPath.row].content {
-            let messageTime = String(viewModel.room.messages[indexPath.row].time)
-            let messageSender = viewModel.room.messages[indexPath.row].sender
+
+        if let messageText = viewModel.messages[indexPath.row].content {
+            let messageTime = String(viewModel.messages[indexPath.row].time)
+            let messageSender = viewModel.messages[indexPath.row].sender
             let size = CGSize(width: 250, height: 1000)
             let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            
+
             let estimatedFrameForSender = NSString(string: messageSender ?? .empty).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 15)!], context: nil)
-            
-            
+
+
             let estimatedFrameForTime = NSString(string: messageTime).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 10)!], context: nil)
-            
-            
+
+
             let estimatedFrameForText = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue", size: 15)!], context: nil)
-            let sumSize = CGRect(x: 0, y: 0, width: estimatedFrameForText.width + estimatedFrameForTime.width + estimatedFrameForSender.width , height: estimatedFrameForText.height + estimatedFrameForTime.height + estimatedFrameForSender.height)
             
-            return CGSize(width: self.view.bounds.width, height: (sumSize.height + 130))
+            
+            let sumSize = CGRect(x: 0, y: 0, width: estimatedFrameForText.width + estimatedFrameForTime.width + estimatedFrameForSender.width , height: estimatedFrameForText.height + estimatedFrameForTime.height + estimatedFrameForSender.height)
+
+            return CGSize(width: self.view.bounds.width, height: (sumSize.height + 55))
         }
         return CGSize(width: 10, height: 100)
     }
+
     
     
     
-    
-  
     
    
     
@@ -237,7 +293,6 @@ extension ChatCollectionViewController: LocationDelegate {
         print(String(coordinate.latitude))
         print(String(coordinate.longitude))
         locationManager.stopUpdatingLocation()
-        // ADD A WAY TO SAVE LOCATION INTO MODEL AND SHOW TO USER
         self.messageInputController.location = Coordinates(longitude: coordinate.longitude , latitude: coordinate.latitude )
         self.messageInputController.gpsButton.setImage( #imageLiteral(resourceName: "GpsHighlited"), for: .highlighted)
         self.messageInputController.gpsButton.isHighlighted = true

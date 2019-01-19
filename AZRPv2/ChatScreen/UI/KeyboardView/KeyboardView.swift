@@ -68,6 +68,7 @@ class KeyboardView : UIView {
     @objc func sendMessage() {
         print("sending")
         self.viewModelDelegate?.sendMessage(message: inputTextFiled.text, image: image, coordinates: location)
+        cleanView()
     }
     
     @objc func addImage() {
@@ -79,6 +80,14 @@ class KeyboardView : UIView {
     @objc func addLocation() {
         print("adding location")
         self.locationDelegate?.getLocation()
+    }
+    
+    private func cleanView() {
+        inputTextFiled.text = .empty
+        imageButton.isHighlighted = false
+        gpsButton.isHighlighted = false
+        image = nil
+        location = nil
     }
     
     private func setupView() {
@@ -116,4 +125,6 @@ class KeyboardView : UIView {
             
         
     }
+    
+    
 }

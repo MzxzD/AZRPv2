@@ -13,7 +13,6 @@ import RxSwift
 
 
 class NewRoomViewModel: NewRoomViewModelProtocol {
-    let socket: WebSocketController!
     var roomName: PublishSubject<String>
     var selectedRoomName: String
     var participateName: String = .empty
@@ -22,10 +21,11 @@ class NewRoomViewModel: NewRoomViewModelProtocol {
     var downloadTrigger: ReplaySubject<Bool>
     var error: PublishSubject<String>
     var dataIsReady: PublishSubject<TableRefresh>
+    let delegate = UIApplication.shared.delegate as! AppDelegate
+
 
     
-    init(socket: WebSocketController) {
-        self.socket = socket
+    init() {
         self.roomName = PublishSubject<String>()
         self.downloadTrigger = ReplaySubject<Bool>.create(bufferSize: 1)
         self.error = PublishSubject<String>()
@@ -69,8 +69,7 @@ class NewRoomViewModel: NewRoomViewModelProtocol {
             let newRoom = prepareMessageToSend()
             let encodedMessage = prepareObjectForSending(object: newRoom)
             print(encodedMessage)
-            socket.socket.write(string: encodedMessage)
-
+            delegate.socketController.socket.write(string: encodedMessage)
         }else {
             error.onNext("Error, Some InputFields are empty")
         }

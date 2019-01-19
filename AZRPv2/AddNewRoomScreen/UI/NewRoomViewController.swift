@@ -183,18 +183,18 @@ class NewRoomViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private func setupView() {
         
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            let blurEffect = UIBlurEffect(style: .regular )
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-            blurEffectView.frame = self.view.bounds
-            self.view.addSubview(blurEffectView)
-            blurEffectView.isHidden = false
-            view.addSubview(blurEffectView.contentView)
-            
-        } else {
+//        if !UIAccessibility.isReduceTransparencyEnabled {
+//            let blurEffect = UIBlurEffect(style: .regular )
+//            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+//            blurEffectView.frame = self.view.bounds
+//            self.view.addSubview(blurEffectView)
+//            blurEffectView.isHidden = false
+//            view.addSubview(blurEffectView.contentView)
+//
+//        } else {
             view.backgroundColor = .white
-        }
+//        }
         setupTableView()
         view.addSubviews(nameLabel, roomNameTextField, participantsTextField, stackView, tableView, doneButton, cancelButton )
         

@@ -13,11 +13,10 @@ class ChatCoordinator: Coordinator{
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
     let controller: ChatCollectionViewController
-    init (presenter: UINavigationController, room: Room, websocet: WebSocketController){
-        //        presenter.viewControllers.removeAll()
+    init (roomID: Int, presenter: UINavigationController){
         self.presenter = presenter
         let controller = ChatCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let homeViewModel = ChatViewModel(room: room, socket: websocet)
+        let homeViewModel = ChatViewModel(roomID: roomID)
         controller.viewModel = homeViewModel
         self.controller = controller
         self.controller.viewModel.coordinatorDelegate = self

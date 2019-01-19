@@ -27,7 +27,7 @@ class GroupTableViewCell: UITableViewCell {
     
     var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: CGFloat(15))
+        label.font = UIFont(name: "HelveticaNeue", size: CGFloat(15))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,8 +45,9 @@ class GroupTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = UIColor.white
         label.layer.cornerRadius = size / 2
-        label.layer.borderWidth = 3.0
+        label.layer.borderWidth = 0
         label.layer.backgroundColor = UIColor.random.cgColor
         label.layer.borderColor = UIColor.black.cgColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +85,8 @@ class GroupTableViewCell: UITableViewCell {
             userNameLabel.leadingAnchor.constraint(equalTo: roomLogoLabel.trailingAnchor, constant: 8),
             
             lastMessageLabel.topAnchor.constraint(equalTo: userNameLabel.topAnchor, constant: 0),
-            lastMessageLabel.leadingAnchor.constraint(equalTo:  userNameLabel.trailingAnchor, constant: 8),
+            lastMessageLabel.leadingAnchor.constraint(equalTo:  userNameLabel.trailingAnchor, constant: 0),
+//            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
 
             timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)

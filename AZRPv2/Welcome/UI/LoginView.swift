@@ -37,6 +37,7 @@ class LoginView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.red
+        label.text = ""
         label.font = UIFont(name: "HelveticaNeue", size: CGFloat(10))
         //        label.text = "Error username not found"
         return label
@@ -56,6 +57,7 @@ class LoginView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.red
+        label.text = ""
         label.font = UIFont(name: "HelveticaNeue", size: CGFloat(10))
         //                label.text = "Error, Password incorrect"
         return label

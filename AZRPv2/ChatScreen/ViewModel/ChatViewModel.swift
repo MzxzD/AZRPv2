@@ -9,43 +9,69 @@
 import Foundation
 import UIKit
 import CoreData
-import Starscream
 import Alamofire
+import RxSwift
 
 
 typealias Coordinates = (longitude: Double, latitude: Double)
 
 class ChatViewModel: ChatViewModelProtocol {
-    
-    var room: Room
     var username: String = .empty
     weak var coordinatorDelegate: ChatCoordinatorDelegate?
-    var socketController: WebSocketController
+    var messages: [Messages] = []
+    let delegate = UIApplication.shared.delegate as! AppDelegate
+    var id: Int?
+    var reinitALL: ReplaySubject<Bool>
     
-    init(room: Room, socket : WebSocketController) {
-        self.room = room
-        self.socketController = socket
+    init(roomID: Int) {
+        self.reinitALL = ReplaySubject<Bool>.create(bufferSize: 1)
         self.username = getUsernameFromData()
+        getMessagesFromID(id: roomID)
     }
     func openImagePicker(imagePicker: UIImagePickerController) {
         coordinatorDelegate?.presentImagePicker(imagePicker: imagePicker)
     }
     
+    func getMessagesFromID(id: Int) {
+        let rooms = RealmSerivce().realm.objects(Room.self)
+        for room in rooms {
+            if id == room.id{
+                for message in room.messages{
+                    self.messages.append(message)
+                }
+            }
+        }
+        self.id = id
+    }
+    
+    
+    func reFetchDataFromRealm(){
+        self.messages.removeAll()
+        let rooms = RealmSerivce().realm.objects(Room.self)
+        for room in rooms {
+            if self.id == room.id{
+                for message in room.messages{
+                    self.messages.append(message)
+                }
+            }
+        }
+        
+    }
     
     func sortChatBubbles(messagePosition: Int) -> Bool {
-        let message = self.room.messages[messagePosition]
+        let message = self.messages[messagePosition]
         if message.sender == self.username {
             return true
         }else {
             return false
         }
     }
-    
+    // TODO: CREATE event that waits for imageupload
     func sendMessage(message: String?, image: UIImage?, coordinates: Coordinates?) {
         if validateInputData(message: message, image: image, coordinates: coordinates){
             let message = prepareMessageToSend(message: message, image: image, coordinates: coordinates)
             let messageToSend = prepareObjectForSending(message: message)
-//            self.socketController.socket.write(string: messageToSend)
+            delegate.socketController.sendMessage(message: messageToSend)
         }else {
             print("No items added")
         }
@@ -65,18 +91,16 @@ extension ChatViewModel {
     
     private func prepareMessageToSend(message: String?, image: UIImage?, coordinates: Coordinates?) -> SendMessageRequest {
         var attributes = Attr()
-        attributes.room = self.room.id
+        attributes.room = self.messages.last?.room ?? -1
         attributes.object = ObjectType.message.rawValue
         attributes.senderUnique = self.username + "_" + randomString(length: 4)
         if message != nil {
             attributes.content = message
         }
         if image != nil {
-            // STILL IN PROGRESS
-            
             uploadImage(image: image!, progress: { (progressPersentage) -> (Void) in
                 while !progressPersentage.isFinished {
-                    print(progressPersentage.fractionCompleted)
+                    print("Upload Progress: \(progressPersentage.fractionCompleted)")
                 }
             }) { (imageObject) -> (Void) in
                 attributes.file = imageObject.file?.id
@@ -100,31 +124,15 @@ extension ChatViewModel {
         return json
     }
     
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocket is connected")
-    }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
-        print("trying to recoonect")
-        socketController.socket.connect()
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        //        let responseData = text.data(using: String.Encoding.utf8)
-        print(text)
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        
-    }
     
 }
 
-protocol ChatViewModelProtocol: CollectionViewCellDelegate, WebSocketDelegate, SendMessageDelegate {
-    var room: Room {get}
+protocol ChatViewModelProtocol: CollectionViewCellDelegate, SendMessageDelegate {
     func openImagePicker(imagePicker: UIImagePickerController)
+    var messages: [Messages] {get}
     var coordinatorDelegate: ChatCoordinatorDelegate? {get set}
+    func reFetchDataFromRealm()
+    var reinitALL: ReplaySubject<Bool> {get}
 }
 
 public protocol CollectionViewCellDelegate: class {
@@ -185,27 +193,22 @@ func uploadImage(image: UIImage,  progress: @escaping (Progress) -> (Void) , com
     let tokenData = token.data(using: String.Encoding.utf8)
     let uploadURL = URL(string: "http://0.0.0.0:8000/api/files/upload/")
     
-    //    let parameters = ["name": "rname"] //Optional for extra parameter
     Alamofire.upload(multipartFormData: { multipartFormData in
         multipartFormData.append(imageJPEG, withName: "file", fileName: "file"+randomString(length: 4)+".jpg", mimeType: "application/octet-stream")
         multipartFormData.append(tokenData!, withName: "token")
-//            .append(imageJPEG, withName: "file"+randomString(length: 4)+".jpg")
-  
+        
     },to:uploadURL!, method:.put)
     { (result) in
         switch result {
         case .success(let upload, _, _):
             print("yeeey")
             upload.uploadProgress(closure: { (progressUpload) in
-//                print("Upload Progress: \(progressUpload.fractionCompleted)")
                 progress(progressUpload)
             })
             
             upload.responseString{ response in
                 let decoder = JSONDecoder()
-//                print(response)
                 let responseJSON = response.data
-//                print(response.result.value)
                 do {
                     let data = try decoder.decode(ImageObject.self, from: responseJSON!)
                     responsePackage = data
@@ -216,23 +219,17 @@ func uploadImage(image: UIImage,  progress: @escaping (Progress) -> (Void) , com
                 completion(responsePackage)
             }
             
-
+            
         case .failure(let encodingError):
             print(encodingError)
         }
     }
     
 }
-
-
-
-
-
 struct ImageObject: Codable {
     let message: String = .empty
     let file: ImageFile?
 }
-
 struct ImageFile: Codable {
     let name, hash, size: String
     let url: String

@@ -52,6 +52,13 @@
 		B59C0FF321E94E7400746F32 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */; };
 		B59C0FF621E9577D00746F32 /* StackViewSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF521E9577D00746F32 /* StackViewSubview.swift */; };
 		B59C0FF821E9E44800746F32 /* RegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C0FF721E9E44800746F32 /* RegisterAPI.swift */; };
+		B59C100221F1C1C000746F32 /* ImageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100121F1C1C000746F32 /* ImageViewCoordinator.swift */; };
+		B59C100421F1C29200746F32 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100321F1C29200746F32 /* ImageViewModel.swift */; };
+		B59C100621F1C2AE00746F32 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100521F1C2AE00746F32 /* ImageViewController.swift */; };
+		B59C100821F1C2C900746F32 /* LocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100721F1C2C900746F32 /* LocationCoordinator.swift */; };
+		B59C100A21F1C2EA00746F32 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100921F1C2EA00746F32 /* LocationViewModel.swift */; };
+		B59C100C21F1C2FD00746F32 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100B21F1C2FD00746F32 /* LocationViewController.swift */; };
+		B59C100E21F1C52500746F32 /* UIImageView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C100D21F1C52500746F32 /* UIImageView + Extensions.swift */; };
 		B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136F921DCF89F00B17888 /* RealmRepository.swift */; };
 		B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */; };
 		B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CFA4C521CBF96300982282 /* LogIn.swift */; };
@@ -74,7 +81,6 @@
 		B5DC876121DBBEAC00FDA595 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876021DBBEAC00FDA595 /* GroupTableViewCell.swift */; };
 		B5DC876321DBC35200FDA595 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876221DBC35200FDA595 /* HomeViewController.swift */; };
 		B5DC876521DBCA8D00FDA595 /* Double + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */; };
-		B5DDA50721E0F34900323A6E /* HomeViewModel Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */; };
 		B5DDA50D21E13BA500323A6E /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */; };
 		B5DDA50F21E13BCD00323A6E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA50E21E13BCD00323A6E /* ChatViewModel.swift */; };
 		B5DDA51121E13BF100323A6E /* ChatCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DDA51021E13BF100323A6E /* ChatCollectionViewController.swift */; };
@@ -131,6 +137,13 @@
 		B59C0FF221E94E7400746F32 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		B59C0FF521E9577D00746F32 /* StackViewSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSubview.swift; sourceTree = "<group>"; };
 		B59C0FF721E9E44800746F32 /* RegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAPI.swift; sourceTree = "<group>"; };
+		B59C100121F1C1C000746F32 /* ImageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCoordinator.swift; sourceTree = "<group>"; };
+		B59C100321F1C29200746F32 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
+		B59C100521F1C2AE00746F32 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		B59C100721F1C2C900746F32 /* LocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinator.swift; sourceTree = "<group>"; };
+		B59C100921F1C2EA00746F32 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		B59C100B21F1C2FD00746F32 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		B59C100D21F1C52500746F32 /* UIImageView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extensions.swift"; sourceTree = "<group>"; };
 		B5C136F921DCF89F00B17888 /* RealmRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		B5C136FC21DD056C00B17888 /* RealmRoomObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRoomObjects.swift; sourceTree = "<group>"; };
 		B5CFA4C521CBF96300982282 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -153,7 +166,6 @@
 		B5DC876021DBBEAC00FDA595 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		B5DC876221DBC35200FDA595 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double + extensions.swift"; sourceTree = "<group>"; };
-		B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel Extension.swift"; sourceTree = "<group>"; };
 		B5DDA50C21E13BA500323A6E /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		B5DDA50E21E13BCD00323A6E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		B5DDA51021E13BF100323A6E /* ChatCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +242,7 @@
 				B563327321DA27B9000D0146 /* NSAttributedString+Extensions.swift */,
 				B5DC876421DBCA8D00FDA595 /* Double + extensions.swift */,
 				B59C0FE521E91FD500746F32 /* UIColor + Extensions.swift */,
+				B59C100D21F1C52500746F32 /* UIImageView + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -259,6 +272,8 @@
 				B549B76121CBF41F00629B2E /* Home */,
 				B59C0FEA21E927DF00746F32 /* AddNewRoomScreen */,
 				B5DDA50821E13B4F00323A6E /* ChatScreen */,
+				B59C0FF921F1C14600746F32 /* ImageView */,
+				B59C0FFA21F1C14F00746F32 /* LocationView */,
 				B549B76B21CBF42A00629B2E /* Assets */,
 				B549B75721CBF41800629B2E /* Models */,
 				B549B75821CBF41800629B2E /* Base */,
@@ -328,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				B549B76321CBF41F00629B2E /* HomeViewModel.swift */,
-				B5DDA50621E0F34900323A6E /* HomeViewModel Extension.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -490,6 +504,74 @@
 				B59C0FF521E9577D00746F32 /* StackViewSubview.swift */,
 			);
 			path = StackView;
+			sourceTree = "<group>";
+		};
+		B59C0FF921F1C14600746F32 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				B59C0FFD21F1C17600746F32 /* Coordinator */,
+				B59C0FFC21F1C16E00746F32 /* ViewModel */,
+				B59C0FFB21F1C16600746F32 /* UI */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		B59C0FFA21F1C14F00746F32 /* LocationView */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100021F1C19000746F32 /* Coordinator */,
+				B59C0FFF21F1C18600746F32 /* ViewModel */,
+				B59C0FFE21F1C18000746F32 /* UI */,
+			);
+			path = LocationView;
+			sourceTree = "<group>";
+		};
+		B59C0FFB21F1C16600746F32 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100521F1C2AE00746F32 /* ImageViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B59C0FFC21F1C16E00746F32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100321F1C29200746F32 /* ImageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B59C0FFD21F1C17600746F32 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100121F1C1C000746F32 /* ImageViewCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		B59C0FFE21F1C18000746F32 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100B21F1C2FD00746F32 /* LocationViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B59C0FFF21F1C18600746F32 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100921F1C2EA00746F32 /* LocationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B59C100021F1C19000746F32 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B59C100721F1C2C900746F32 /* LocationCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		B5C136FB21DD055000B17888 /* RealmRoomObject */ = {
@@ -781,20 +863,22 @@
 				B563327621DA8697000D0146 /* HomeCoordinatorDelegate.swift in Sources */,
 				B5DDA51321E13F0800323A6E /* ChatCollectionViewCell.swift in Sources */,
 				B549B76821CBF41F00629B2E /* HomeViewModel.swift in Sources */,
+				B59C100E21F1C52500746F32 /* UIImageView + Extensions.swift in Sources */,
 				B5313A7621CBF6310059DC66 /* Coordinator.swift in Sources */,
+				B59C100A21F1C2EA00746F32 /* LocationViewModel.swift in Sources */,
 				B59C0FF021E928FF00746F32 /* NewRoomViewModel.swift in Sources */,
 				B5313A7721CBF6310059DC66 /* CoordinatorDelegate.swift in Sources */,
 				B5313A7C21CBF6440059DC66 /* String+Extensions.swift in Sources */,
 				B549B76021CBF41800629B2E /* NetworkError.swift in Sources */,
 				B510037D21DCEC900078230E /* WebSocket.swift in Sources */,
 				B549B75D21CBF41800629B2E /* RestEndpoints.swift in Sources */,
-				B5DDA50721E0F34900323A6E /* HomeViewModel Extension.swift in Sources */,
 				B554458121D8DFFD006348B1 /* LoginViewModel.swift in Sources */,
 				B5CFA4C621CBF96300982282 /* LogIn.swift in Sources */,
 				B5313A7B21CBF6440059DC66 /* UIView+Extensions.swift in Sources */,
 				B5DC875021DBBB6900FDA595 /* TableRefresh.swift in Sources */,
 				B580BB8721E68EB800F6848E /* ChatCoordinatorDelegate.swift in Sources */,
 				B5DC875E21DBBC2B00FDA595 /* ErrorAlertController.swift in Sources */,
+				B59C100221F1C1C000746F32 /* ImageViewCoordinator.swift in Sources */,
 				B549B77621CBF42A00629B2E /* Theme.swift in Sources */,
 				B5C136FD21DD056C00B17888 /* RealmRoomObjects.swift in Sources */,
 				B5DC874821DBBB0700FDA595 /* TableRefreshViewModel.swift in Sources */,
@@ -803,6 +887,7 @@
 				B5CFA4D021CBFAD000982282 /* GeneralError.swift in Sources */,
 				B5DC875A21DBBC1100FDA595 /* LoaderViewProtocol.swift in Sources */,
 				B5CFA4CF21CBFAD000982282 /* ErrorAlert.swift in Sources */,
+				B59C100821F1C2C900746F32 /* LocationCoordinator.swift in Sources */,
 				B549B75F21CBF41800629B2E /* RestManager.swift in Sources */,
 				B5C136FA21DCF89F00B17888 /* RealmRepository.swift in Sources */,
 				B59C0FE621E91FD500746F32 /* UIColor + Extensions.swift in Sources */,
@@ -826,10 +911,13 @@
 				B554458721D921FE006348B1 /* RegisterView.swift in Sources */,
 				B5DC875721DBBC1100FDA595 /* LoaderOverlayView.swift in Sources */,
 				B549B75E21CBF41800629B2E /* BaseRepositoryProtocol.swift in Sources */,
+				B59C100421F1C29200746F32 /* ImageViewModel.swift in Sources */,
+				B59C100621F1C2AE00746F32 /* ImageViewController.swift in Sources */,
 				B5DC875B21DBBC1100FDA595 /* LoaderViewModel.swift in Sources */,
 				B5DDA50D21E13BA500323A6E /* ChatCoordinator.swift in Sources */,
 				B51E5E1221CCEE0E0068B642 /* SendMessageRequest.swift in Sources */,
 				B554458321D8E135006348B1 /* LoginView.swift in Sources */,
+				B59C100C21F1C2FD00746F32 /* LocationViewController.swift in Sources */,
 				B5DC876321DBC35200FDA595 /* HomeViewController.swift in Sources */,
 				B549B77521CBF42A00629B2E /* Style+Extensions.swift in Sources */,
 				B5DDA50F21E13BCD00323A6E /* ChatViewModel.swift in Sources */,
