@@ -43,7 +43,13 @@ class WebSocketController: WebSocketDelegate {
     }
     
     func sendMessage(message: String) {
-        self.socket.write(string: message)
+        if self.socket.isConnected{
+            self.socket.write(string: message)
+        }
+        else{
+            self.error.onNext("NOT CONNECTEN ON WB! BITCH!")
+        }
+        
     }
     
     private func createWebSocket() -> WebSocket {
@@ -51,7 +57,7 @@ class WebSocketController: WebSocketDelegate {
     }
     
     private func getWebSocketURL() -> String{
-        return  (WebSocketAdress().adress + getTokenFromData()+"/"+String(-1)+"/"+String(self.lastRoomIDAndlastMessageID.messageID ?? -1)+"/")
+        return  (WebSocketAdress().adress + getTokenFromData()+"/"+String(self.lastRoomIDAndlastMessageID.roomID ?? -1)+"/"+String(self.lastRoomIDAndlastMessageID.messageID ?? -1)+"/")
     }
     
     
@@ -173,7 +179,6 @@ class WebSocketController: WebSocketDelegate {
         newRoom.object = websocketRoom.attr.object
         newRoom.sender = websocketRoom.attr.sender
         newRoom.time = websocketRoom.attr.time
-        
         realmRoom += [newRoom]
         
         if (!self.realmServise.update(object: newRoom)){
@@ -216,14 +221,14 @@ class WebSocketController: WebSocketDelegate {
         message.time = wsMessage.attr.time
         
         if let location = wsMessage.attr.location {
-            message.location?.latitude = location.latitude
-            message.location?.longitude = location.longitude
+            message.latitude = location.latitude
+            message.longitude = location.longitude
         }
         
         if let file = wsMessage.attr.file {
-            message.file?.fileHashValue = file.hash
-            message.file?.name = file.name
-            message.file?.url = file.url
+            message.fileHashValue = file.hash
+            message.fileName = file.name
+//            message.file?.url = file.url
         }
         
         return message

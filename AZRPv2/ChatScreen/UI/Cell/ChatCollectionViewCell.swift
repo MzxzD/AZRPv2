@@ -51,7 +51,7 @@ class ChatCollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "GpsImage"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-//        button.isHidden = true
+        button.isHidden = true
         return button
     }()
     
@@ -59,20 +59,21 @@ class ChatCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor.clear
-        button.setTitle(" yeeey", for: .normal)
+//        button.setTitle(" yeeey", for: .normal)
+        button.contentHorizontalAlignment = .left
         button.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: CGFloat(10))
         button.layer.borderColor = UIColor.clear.cgColor
-
+        button.isHidden = true
         return button
     }()
     
-    var textBubbleView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.layer.cornerRadius = 15
-//        view.layer.masksToBounds = true
-        return view
-    }()
+//    var textBubbleView: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+////        view.layer.cornerRadius = 15
+////        view.layer.masksToBounds = true
+//        return view
+//    }()
     
     
     func setupView() {
@@ -126,11 +127,12 @@ class ChatCollectionViewCell: UICollectionViewCell {
             locationButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             locationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
-            imageButton.widthAnchor.constraint(equalToConstant: 50),
+//            imageButton.widthAnchor.constraint(equalToConstant: 50),
             imageButton.heightAnchor.constraint(equalToConstant: 25),
             imageButton.topAnchor.constraint(equalTo: MessageLabel.bottomAnchor, constant: 8),
             imageButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageButton.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: 8),
+            imageButton.trailingAnchor.constraint(equalToSystemSpacingAfter: timeLabel.leadingAnchor, multiplier: 8),
 
         ]
 //        constraints[6].priority = UILayoutPriority(999)

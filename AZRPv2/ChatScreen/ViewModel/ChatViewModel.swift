@@ -22,10 +22,14 @@ class ChatViewModel: ChatViewModelProtocol {
     var messages: [Messages] = []
     let delegate = UIApplication.shared.delegate as! AppDelegate
     var id: Int?
+    var imageID: Int?
+    var image: UIImage?
+    var imageIsReady: ReplaySubject<Bool>
     var reinitALL: ReplaySubject<Bool>
     
     init(roomID: Int) {
         self.reinitALL = ReplaySubject<Bool>.create(bufferSize: 1)
+        self.imageIsReady = ReplaySubject<Bool>.create(bufferSize: 1)
         self.username = getUsernameFromData()
         getMessagesFromID(id: roomID)
     }
@@ -70,11 +74,12 @@ class ChatViewModel: ChatViewModelProtocol {
         }
     }
     // TODO: CREATE event that waits for imageupload
-    func sendMessage(message: String?, image: UIImage?, coordinates: Coordinates?) {
+    func sendMessage(message: String?, coordinates: Coordinates?) {
         if validateInputData(message: message, image: image, coordinates: coordinates){
-            let message = prepareMessageToSend(message: message, image: image, coordinates: coordinates)
+            let message = prepareMessageToSend(message: message, imageID: imageID, coordinates: coordinates)
             let messageToSend = prepareObjectForSending(message: message)
             delegate.socketController.sendMessage(message: messageToSend)
+            imageID = nil
         }else {
             print("No items added")
         }
@@ -84,6 +89,17 @@ class ChatViewModel: ChatViewModelProtocol {
 
 extension ChatViewModel {
     
+    func uploadImageToDatabase(image: UIImage?) {
+        guard let imageToUpload = image else {
+            
+            self.imageIsReady.onNext(true)
+            return
+        }
+        uploadImage(image: imageToUpload)
+        self.image = nil
+    }
+    
+    
     private func validateInputData(message: String?, image: UIImage?, coordinates: Coordinates?) -> Bool{
         if (message == .empty && image == nil && coordinates == nil){
             return false
@@ -92,7 +108,7 @@ extension ChatViewModel {
         
     }
     
-    private func prepareMessageToSend(message: String?, image: UIImage?, coordinates: Coordinates?) -> SendMessageRequest {
+    private func prepareMessageToSend(message: String?, imageID: Int?, coordinates: Coordinates?) -> SendMessageRequest {
         var attributes = Attr()
         attributes.room = self.room?.id ?? -1
         attributes.object = ObjectType.message.rawValue
@@ -100,15 +116,10 @@ extension ChatViewModel {
         if message != nil {
             attributes.content = message
         }
-        if image != nil {
-            uploadImage(image: image!, progress: { (progressPersentage) -> (Void) in
-                while !progressPersentage.isFinished {
-                    print("Upload Progress: \(progressPersentage.fractionCompleted)")
-                }
-            }) { (imageObject) -> (Void) in
-                attributes.file = imageObject.file?.id
-            }
+        if imageID != nil {
+            attributes.file = imageID
         }
+        
         if coordinates != nil {
             let location = Location(latitude: (coordinates?.latitude)!, longitude: (coordinates?.longitude)!)
             attributes.location = location
@@ -128,6 +139,52 @@ extension ChatViewModel {
     }
     
     
+    func uploadImage(image: UIImage) {
+        var responsePackage = ImageObject(file: nil)
+        guard let  imageJPEG = image.jpegData(compressionQuality: 0.75) else {
+            print("Unable to get JPEG representation for image \(image)")
+            return
+        }
+        let token = getTokenFromData()
+        let tokenData = token.data(using: String.Encoding.utf8)
+        let uploadURL = URL(string: "http://0.0.0.0:8000/api/files/upload/")
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imageJPEG, withName: "file", fileName: "file"+randomString(length: 4)+".jpg", mimeType: "application/octet-stream")
+            multipartFormData.append(tokenData!, withName: "token")
+            
+        },to:uploadURL!, method:.put)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                print("yeeey")
+                upload.uploadProgress(closure: { (progressUpload) in
+                    print(progressUpload.fractionCompleted)
+                })
+                
+                upload.responseString{ response in
+                    let decoder = JSONDecoder()
+                    let responseJSON = response.data
+                    do {
+                        let data = try decoder.decode(ImageObject.self, from: responseJSON!)
+                        responsePackage = data
+                        print(data)
+                        self.imageID = responsePackage.file?.id
+                        self.imageIsReady.onNext(true)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                  
+                }
+                
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+        
+    }
+    
 }
 
 protocol ChatViewModelProtocol: CollectionViewCellDelegate, SendMessageDelegate {
@@ -136,6 +193,7 @@ protocol ChatViewModelProtocol: CollectionViewCellDelegate, SendMessageDelegate 
     var coordinatorDelegate: ChatCoordinatorDelegate? {get set}
     func reFetchDataFromRealm()
     var reinitALL: ReplaySubject<Bool> {get}
+    var image: UIImage? {get set}
 }
 
 public protocol CollectionViewCellDelegate: class {
@@ -144,8 +202,9 @@ public protocol CollectionViewCellDelegate: class {
 }
 
 protocol SendMessageDelegate: class {
-    func sendMessage(message: String?, image: UIImage?, coordinates: Coordinates?)
-    
+    func sendMessage(message: String?, coordinates: Coordinates?)
+    func uploadImageToDatabase(image: UIImage?)
+    var imageIsReady: ReplaySubject<Bool> {get}
     
 }
 
@@ -188,49 +247,7 @@ public func getUserIDFromData() -> Int {
 }
 
 
-func uploadImage(image: UIImage,  progress: @escaping (Progress) -> (Void) , completion : @escaping (ImageObject)-> (Void)) {
-    var responsePackage = ImageObject(file: nil)
-    guard let  imageJPEG = image.jpegData(compressionQuality: 0.75) else {
-        print("Unable to get JPEG representation for image \(image)")
-        return
-    }
-    let token = getTokenFromData()
-    let tokenData = token.data(using: String.Encoding.utf8)
-    let uploadURL = URL(string: "http://0.0.0.0:8000/api/files/upload/")
-    
-    Alamofire.upload(multipartFormData: { multipartFormData in
-        multipartFormData.append(imageJPEG, withName: "file", fileName: "file"+randomString(length: 4)+".jpg", mimeType: "application/octet-stream")
-        multipartFormData.append(tokenData!, withName: "token")
-        
-    },to:uploadURL!, method:.put)
-    { (result) in
-        switch result {
-        case .success(let upload, _, _):
-            print("yeeey")
-            upload.uploadProgress(closure: { (progressUpload) in
-                progress(progressUpload)
-            })
-            
-            upload.responseString{ response in
-                let decoder = JSONDecoder()
-                let responseJSON = response.data
-                do {
-                    let data = try decoder.decode(ImageObject.self, from: responseJSON!)
-                    responsePackage = data
-                    print(data)
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-                completion(responsePackage)
-            }
-            
-            
-        case .failure(let encodingError):
-            print(encodingError)
-        }
-    }
-    
-}
+
 struct ImageObject: Codable {
     let message: String = .empty
     let file: ImageFile?

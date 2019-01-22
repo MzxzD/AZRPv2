@@ -34,20 +34,27 @@ class Messages: Object {
     @objc dynamic var senderID: Int = -1
     @objc dynamic var room: Int = -1
     @objc dynamic var roomName: String?
-    var file: UserFile?
-    var location: UserLocation?
+    @objc dynamic var fileHashValue: String?
+    @objc dynamic var fileName: String?
+    @objc dynamic var latitude: Double = 0
+    @objc dynamic var longitude: Double = 0
+    
+//    var file: UserFile?
+//    var location: UserLocation?
     
     override class func primaryKey() -> String? {
         return "messageID"
     }
 }
 
-class UserFile: Object {
-    @objc dynamic var name, fileHashValue: String?
-    @objc dynamic var url: String?
-}
-
-class UserLocation: Object {
-    @objc dynamic var latitude: Double = 0
-    @objc dynamic var longitude: Double = 0
-}
+//class UserFile: Object {
+//    
+//    @objc dynamic var name, fileHashValue: String?
+//    @objc dynamic var url: String?
+//    
+//}
+//
+//class UserLocation: Object {
+//    @objc dynamic var latitude: Double = 0
+//    @objc dynamic var longitude: Double = 0
+//}

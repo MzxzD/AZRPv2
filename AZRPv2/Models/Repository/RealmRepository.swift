@@ -109,26 +109,38 @@ class RealmSerivce {
     
     func getLastRoomAndMessageId() -> (roomID: Int?, messageID: Int?){
         
-        let realmRooms = self.realm.objects(Room.self)
+        var realmRooms = self.realm.objects(Room.self)
         var roomID: Int = -1
         var messageID : Int = -1
         var messageTime: Double = 0
         
-        for room in realmRooms {
-            for message in room.messages {
-                if message.time > messageTime {
-                    messageTime = message.time
-                    messageID = message.messageID
-                    roomID = room.id
-                }
-            }
+        var newRoom = Array(realmRooms)
+        
+        
+        newRoom = newRoom.sorted(by: { (roomOne, roomTwo) -> Bool in
+            let roomTimeOne: Double = roomOne.messages.last?.time ?? roomOne.time
+            let roomTimeTwo: Double = roomTwo.messages.last?.time ?? roomTwo.time
+            return roomTimeOne > roomTimeTwo
+        })
+        roomID = newRoom.first?.id ?? -1
+        messageID = newRoom.first?.messages.last?.messageID ?? -1
+        let lala = newRoom.first?.time
+        let jjd = newRoom.first?.messages.last?.time
+        if newRoom.first?.time ?? 0 < newRoom.first?.messages.last?.time ?? 0 {
+            roomID = -1
         }
-
-        if roomID == -1 || messageID == -1 {
-            return (nil, nil)
-        } else {
+        
+//        for room in realmRooms {
+//            for message in room.messages {
+//                if message.time > messageTime {
+//                    messageTime = message.time
+//                    messageID = message.messageID
+//                    roomID = room.id
+//                }
+//            }
+//        }
             return (roomID, messageID)
-        }
+        
         
         
     }

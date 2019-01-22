@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 
 class KeyboardView : UIView {
@@ -15,6 +16,7 @@ class KeyboardView : UIView {
     weak var viewModelDelegate: SendMessageDelegate?
     weak var imageDelegate: ImageDelegate?
     weak var locationDelegate: LocationDelegate?
+    let disposeBag = DisposeBag()
     
     var image : UIImage?
     var location: Coordinates?
@@ -59,16 +61,39 @@ class KeyboardView : UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.lightGray
         setupView()
+//        initializeImageListener()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    
+    func initializeImageListener(){
+        let imageListener = self.viewModelDelegate!.imageIsReady
+        imageListener
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] (event) in
+                if event {
+                    self.viewModelDelegate?.sendMessage(message: self.inputTextFiled.text, coordinates: self.location)
+                    self.cleanView()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        
+    }
+    
+    
+    
+    
     @objc func sendMessage() {
         print("sending")
-        self.viewModelDelegate?.sendMessage(message: inputTextFiled.text, image: image, coordinates: location)
-        cleanView()
+        // TODO: FUNCTION TO STARt ALL
+//        initializeImageListener()
+        self.viewModelDelegate?.uploadImageToDatabase(image: image)
+       
     }
     
     @objc func addImage() {

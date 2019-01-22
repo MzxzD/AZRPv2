@@ -99,6 +99,14 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         cell.MessageLabel.text = messageItem.content
         cell.userNameLabel.text = messageItem.sender
         cell.timeLabel.text = dayStringFromTime(unixTime: (messageItem.time ) / 1000) + " " +  timeStringFromUnixTime(unixTime: (messageItem.time) / 1000)
+        if messageItem.fileName != nil {
+            cell.imageButton.setTitle(messageItem.fileName, for: .normal)
+            cell.imageButton.isHidden = false
+        }
+        
+        if messageItem.longitude != 0 && messageItem.latitude != 0 {
+            cell.locationButton.isHidden = false
+        }
         cell.setupView()
         return cell
     }
@@ -148,6 +156,7 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
         
         messageInputController.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(messageInputController)
+        messageInputController.initializeImageListener()
         messageInputController.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         messageInputController.heightAnchor.constraint(equalToConstant: 48).isActive = true
         messageInputController.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
@@ -230,9 +239,8 @@ extension ChatCollectionViewController: ImageDelegate, UIImagePickerControllerDe
         self.messageInputController.imageButton.setImage( #imageLiteral(resourceName: "imageHighlited"), for: .highlighted)
         self.messageInputController.imageButton.isHighlighted = true
         self.messageInputController.image = selectedImage
-        //Set photoImageView to display the selected image.
-        //        photoImageView.image = selectedImage
-        
+        self.viewModel.image = selectedImage
+  
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
         
