@@ -41,9 +41,9 @@ class HomeViewModel: HomeViewModelProtocol {
                     }
 
                     self.realmRooms = self.realmRooms.sorted(by: { (roomOne, roomTwo) -> Bool in
-                        guard let firstTime = roomOne.messages.last?.time else { return false }
-                        guard let secondTime = roomTwo.messages.last?.time else { return false }
-                        return firstTime > secondTime
+                        let roomTimeOne: Double = roomOne.messages.last?.time ?? roomOne.time
+                        let roomTimeTwo: Double = roomTwo.messages.last?.time ?? roomTwo.time
+                        return roomTimeOne > roomTimeTwo
                     })
                     self.dataIsReady.onNext(.complete)
                 }

@@ -100,6 +100,7 @@ class WebSocketController: WebSocketDelegate {
         let jsonDecoder = JSONDecoder()
         var message: MessageObject? = nil
         var room: RoomObject? = nil
+        var responseRoom: RoomParsed? = nil
         let userID = getUserIDFromData()
         
         do{
@@ -110,8 +111,17 @@ class WebSocketController: WebSocketDelegate {
         } catch {
             
             do {
-                let data = try jsonDecoder.decode(RoomObject.self, from: data)
-                room = data
+                let parsedData = try jsonDecoder.decode(RoomParsed.self, from: data)
+                if parsedData.type == "response"{
+                    responseRoom = parsedData
+                }else {
+                    do {
+                        let newData = try jsonDecoder.decode(RoomObject.self, from: data)
+                        room = newData
+                    } catch let error {
+                        self.error.onNext(error.localizedDescription)
+                    }
+                }
                 //                print(data)
             } catch let error {
                 self.error.onNext(error.localizedDescription)

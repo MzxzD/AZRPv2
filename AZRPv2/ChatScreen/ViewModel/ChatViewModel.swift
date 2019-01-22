@@ -18,6 +18,7 @@ typealias Coordinates = (longitude: Double, latitude: Double)
 class ChatViewModel: ChatViewModelProtocol {
     var username: String = .empty
     weak var coordinatorDelegate: ChatCoordinatorDelegate?
+    var room: Room?
     var messages: [Messages] = []
     let delegate = UIApplication.shared.delegate as! AppDelegate
     var id: Int?
@@ -34,8 +35,10 @@ class ChatViewModel: ChatViewModelProtocol {
     
     func getMessagesFromID(id: Int) {
         let rooms = RealmSerivce().realm.objects(Room.self)
+    
         for room in rooms {
             if id == room.id{
+                self.room = room
                 for message in room.messages{
                     self.messages.append(message)
                 }
@@ -91,7 +94,7 @@ extension ChatViewModel {
     
     private func prepareMessageToSend(message: String?, image: UIImage?, coordinates: Coordinates?) -> SendMessageRequest {
         var attributes = Attr()
-        attributes.room = self.messages.last?.room ?? -1
+        attributes.room = self.room?.id ?? -1
         attributes.object = ObjectType.message.rawValue
         attributes.senderUnique = self.username + "_" + randomString(length: 4)
         if message != nil {
@@ -137,10 +140,12 @@ protocol ChatViewModelProtocol: CollectionViewCellDelegate, SendMessageDelegate 
 
 public protocol CollectionViewCellDelegate: class {
     func sortChatBubbles(messagePosition: Int) -> Bool
+    
 }
 
 protocol SendMessageDelegate: class {
     func sendMessage(message: String?, image: UIImage?, coordinates: Coordinates?)
+    
     
 }
 

@@ -49,3 +49,16 @@ struct RoomAttr: Codable {
     }
     
 }
+
+
+
+struct RoomParsed: Codable {
+    let type: String
+    let attr: ParsedAttr
+}
+
+struct ParsedAttr: Codable {
+    let object, name: String
+    let id: Int
+    let time: Double
+}
