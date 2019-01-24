@@ -7,9 +7,18 @@
 //
 
 import UIKit
+import RxSwift
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, LoaderViewProtocol {
+    var disposeBag = DisposeBag()
+    
 
+    
+    let imageView :UIImageView = {
+        let view = UIImageView()
+        
+        return view
+    }()
     
     var viewModel: ImageViewModelProtocol!
     override func viewDidLoad() {
@@ -19,14 +28,12 @@ class ImageViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func initializeData(){
+        initializeLoaderObserver(viewModel.loaderPublisher)
     }
-    */
-
+    
+    private func setupView(){
+        view.addSubview(imageView)
+        imageView.layer.bounds = view.bounds
+    }
 }

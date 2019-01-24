@@ -84,7 +84,7 @@ class RegisterViewModel {
     
  
     func doesUserAlreadyExists(registerName: String, completion : @escaping (Exists)-> (Void)) {
-        let url = "http://0.0.0.0:8000/api/auth/user-exists/?username="+registerName
+        let url = ServerAdress().adress+"api/auth/user-exists/?username="+registerName
 
         Alamofire
             .request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil)

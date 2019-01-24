@@ -17,7 +17,7 @@ class APIService {
     func fetchDataFromApI(username: String, pass: String) -> Observable<DataWrapper<LogIn>>{
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/login/"
+        let url = ServerAdress().adress+"api/auth/login/"
         
         return RxAlamofire
             .request(.post, url, parameters: ["username": username, "password": pass], encoding: URLEncoding.default , headers: nil)
@@ -48,7 +48,7 @@ class APIService {
     func getUsers(token: String) -> Observable<DataWrapper<Users>> {
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/users/?token="+token
+        let url = ServerAdress().adress+"api/auth/users/?token="+token
         
         return RxAlamofire
             .data(.get, url)
@@ -73,7 +73,7 @@ class APIService {
     func getUsers(token: String, searchQuerry: String) -> Observable<DataWrapper<Users>>{
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/users/?token="+token+"&q="+searchQuerry
+        let url = ServerAdress().adress+"api/auth/users/?token="+token+"&q="+searchQuerry
         
         return RxAlamofire
             .data(.get, url)
@@ -96,7 +96,7 @@ class APIService {
     
     
     func doesUserAlreadyExists(username: String) -> Observable<DataWrapper<Exists>> {
-        let url = "http://0.0.0.0:8000/api/auth/user-exists/?username="+username
+        let url = ServerAdress().adress+"api/auth/user-exists/?username="+username
         
         return RxAlamofire
             .data(.get, url)

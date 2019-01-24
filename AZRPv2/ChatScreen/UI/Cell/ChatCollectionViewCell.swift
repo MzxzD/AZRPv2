@@ -67,6 +67,18 @@ class ChatCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    var passIndexPathToVMOpenImageView: (() -> (Void))?
+    var passIndexPathToVMOpenNavigationView: (() -> (Void))?
+    
+    @objc func openImageView(sender: Any) {
+        self.passIndexPathToVMOpenImageView?()
+    }
+    
+    @objc func openNavigationView(sender: Any) {
+        self.passIndexPathToVMOpenNavigationView?()
+    }
+    
+    
 //    var textBubbleView: UIView = {
 //        let view = UIView()
 //        view.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +91,9 @@ class ChatCollectionViewCell: UICollectionViewCell {
     func setupView() {
         
 //        self.addSubview(textBubbleView)
+        imageButton.addTarget(self, action: #selector(openImageView), for: .touchUpInside)
+        locationButton.addTarget(self, action: #selector(openNavigationView), for: .touchUpInside)
+
         self.addSubviews(MessageLabel,userNameLabel,timeLabel, locationButton, imageButton)
         var isMessageFromSender: Bool!
         if self.messagePosition != nil{
@@ -93,12 +108,19 @@ class ChatCollectionViewCell: UICollectionViewCell {
             userNameLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
             imageButton.titleLabel?.textColor = UIColor.white
+            MessageLabel.textAlignment = .right
+//            userNameLabel.textAlignment = .right
+//            locationButton.semanticContentAttribute = .forceRightToLeft
         }else {
             self.backgroundColor = UIColor(red: 241/255, green: 240/255, blue: 240/255, alpha: 1)
             MessageLabel.textColor = UIColor.black
             userNameLabel.textColor = UIColor.black
             timeLabel.textColor = UIColor.black
             imageButton.titleLabel?.textColor = UIColor.black
+            MessageLabel.textAlignment = .left
+//            userNameLabel.textAlignment = .left
+//            locationButton.semanticContentAttribute = .forceLeftToRight
+
         }
         
         setupConstraints(isMessageSender: isMessageFromSender)
@@ -111,6 +133,7 @@ class ChatCollectionViewCell: UICollectionViewCell {
             userNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             userNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             userNameLabel.heightAnchor.constraint(equalToConstant: 17),
+            userNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             MessageLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 8),
             MessageLabel.leadingAnchor.constraint(equalTo:  leadingAnchor, constant: 20),
@@ -126,6 +149,7 @@ class ChatCollectionViewCell: UICollectionViewCell {
             locationButton.widthAnchor.constraint(equalToConstant: 25),
             locationButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             locationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+//            locationButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             
 //            imageButton.widthAnchor.constraint(equalToConstant: 50),
             imageButton.heightAnchor.constraint(equalToConstant: 25),

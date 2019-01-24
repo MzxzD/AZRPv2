@@ -108,6 +108,13 @@ class ChatCollectionViewController: UICollectionViewController, UICollectionView
             cell.locationButton.isHidden = false
         }
         cell.setupView()
+        cell.passIndexPathToVMOpenImageView = {
+            self.viewModel.openImageView(element: indexPath.row)
+        }
+        
+        cell.passIndexPathToVMOpenNavigationView = {
+            self.viewModel.openNavigationView(element: indexPath.row)
+        }
         return cell
     }
     

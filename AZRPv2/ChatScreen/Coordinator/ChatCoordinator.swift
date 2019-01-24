@@ -29,6 +29,18 @@ class ChatCoordinator: Coordinator{
 }
 
 extension ChatCoordinator: ChatCoordinatorDelegate{
+    func openImageView(url: String, name: String) {
+        let imageCoordinator = ImageViewCoordinator(urlToImage: url, imageName: name, presenter: presenter)
+        addChildCoordinator(childCoordinator: imageCoordinator)
+        imageCoordinator.start()
+    }
+    
+   
+    
+    func openNavigationView(longitude: Double, latitude: Double) {
+        // TODO: IMPLEMENT OPENING NAVIGATIONVIEW
+    }
+    
     func presentImagePicker(imagePicker: UIImagePickerController) {
         self.presenter.present(imagePicker, animated: true, completion: nil)
     }

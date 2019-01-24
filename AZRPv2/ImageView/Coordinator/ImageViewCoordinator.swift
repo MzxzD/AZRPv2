@@ -16,6 +16,7 @@ class ImageViewCoordinator: Coordinator{
     init (urlToImage: String, imageName: String, presenter: UINavigationController){
         self.presenter = presenter
         let controller = ImageViewController()
+        controller.title = imageName
         let viewModel = ImageViewModel(urlToImage: urlToImage)
         controller.viewModel = viewModel
         controller.title = imageName

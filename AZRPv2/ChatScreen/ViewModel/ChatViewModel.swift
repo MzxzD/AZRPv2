@@ -33,6 +33,18 @@ class ChatViewModel: ChatViewModelProtocol {
         self.username = getUsernameFromData()
         getMessagesFromID(id: roomID)
     }
+    
+    func openImageView(element: Int){
+        let selectedElement: (hash: String, name: String) = (hash: self.messages[element].fileHashValue!, name: self.messages[element].fileName!)
+        let url = createURLForImageDownload(hash: selectedElement.hash, name: selectedElement.name)
+        self.coordinatorDelegate?.openImageView(url: url, name: selectedElement.name)
+    }
+    
+    func openNavigationView(element: Int){
+        
+    }
+    
+    
     func openImagePicker(imagePicker: UIImagePickerController) {
         coordinatorDelegate?.presentImagePicker(imagePicker: imagePicker)
     }
@@ -73,7 +85,6 @@ class ChatViewModel: ChatViewModelProtocol {
             return false
         }
     }
-    // TODO: CREATE event that waits for imageupload
     func sendMessage(message: String?, coordinates: Coordinates?) {
         if validateInputData(message: message, image: image, coordinates: coordinates){
             let message = prepareMessageToSend(message: message, imageID: imageID, coordinates: coordinates)
@@ -147,7 +158,7 @@ extension ChatViewModel {
         }
         let token = getTokenFromData()
         let tokenData = token.data(using: String.Encoding.utf8)
-        let uploadURL = URL(string: "http://0.0.0.0:8000/api/files/upload/")
+        let uploadURL = URL(string: ServerAdress().adress+"api/files/upload/")
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imageJPEG, withName: "file", fileName: "file"+randomString(length: 4)+".jpg", mimeType: "application/octet-stream")
@@ -194,6 +205,8 @@ protocol ChatViewModelProtocol: CollectionViewCellDelegate, SendMessageDelegate 
     func reFetchDataFromRealm()
     var reinitALL: ReplaySubject<Bool> {get}
     var image: UIImage? {get set}
+    func openImageView(element: Int)
+    func openNavigationView(element: Int)
 }
 
 public protocol CollectionViewCellDelegate: class {
@@ -256,4 +269,10 @@ struct ImageFile: Codable {
     let name, hash, size: String
     let url: String
     let id: Int
+}
+
+
+
+public func createURLForImageDownload(hash: String, name: String) -> String {
+    return ServerAdress().adressWithoutPort+"8080/ipfs/"+hash+"/"+name
 }
