@@ -144,6 +144,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Emitter/Emitter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework"
@@ -160,6 +161,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Emitter/Emitter.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework"

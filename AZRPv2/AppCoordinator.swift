@@ -36,6 +36,7 @@ class AppCoordinator: Coordinator{
             let homeCoordinator = HomeCoordinator(presenter: presenter)
             addChildCoordinator(childCoordinator: homeCoordinator)
             homeCoordinator.start()
+            
         } else {
             let loginCoordinator = LoginCoordinator(presenter: presenter)
             addChildCoordinator(childCoordinator: loginCoordinator)

@@ -13,5 +13,5 @@ class WebSocketAdress {
 }
 class ServerAdress {
     let adress = "http://0.0.0.0:8000/"
-    let adressWithoutPort = "http://0.0.0.0/"
+    let adressWithoutPort = "http://0.0.0.0:"
 }

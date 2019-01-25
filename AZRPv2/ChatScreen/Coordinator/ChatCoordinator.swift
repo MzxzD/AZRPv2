@@ -37,8 +37,10 @@ extension ChatCoordinator: ChatCoordinatorDelegate{
     
    
     
-    func openNavigationView(longitude: Double, latitude: Double) {
-        // TODO: IMPLEMENT OPENING NAVIGATIONVIEW
+    func openNavigationView(coordinates: Coordinates, userName: String) {
+        let navigationView = LocationViewCoordinator(coordinates: coordinates, userName: userName, presenter: presenter)
+        addChildCoordinator(childCoordinator: navigationView)
+        navigationView.start()
     }
     
     func presentImagePicker(imagePicker: UIImagePickerController) {

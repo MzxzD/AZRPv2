@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 def shared_pods
   pod 'Alamofire'
+  pod 'AlamofireImage'
   pod 'Kingfisher'
   pod 'RxSwift'
   pod 'RxCocoa'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "300F146C542B6636A791F623750B4263"
+               BlueprintIdentifier = "0D748A89A7DBA3BBAEC6376DC8E46D47"
                BuildableName = "SocketIO.framework"
                BlueprintName = "Socket.IO-Client-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "300F146C542B6636A791F623750B4263"
+            BlueprintIdentifier = "0D748A89A7DBA3BBAEC6376DC8E46D47"
             BuildableName = "SocketIO.framework"
             BlueprintName = "Socket.IO-Client-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">

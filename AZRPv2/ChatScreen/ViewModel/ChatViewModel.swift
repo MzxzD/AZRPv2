@@ -41,7 +41,9 @@ class ChatViewModel: ChatViewModelProtocol {
     }
     
     func openNavigationView(element: Int){
-        
+        let selectedMessage = self.messages[element]
+        let selectedElement: (coordinates: Coordinates, username: String) = (coordinates: Coordinates(selectedMessage.longitude, selectedMessage.latitude), username: selectedMessage.sender!)
+        self.coordinatorDelegate?.openNavigationView(coordinates: selectedElement.coordinates, userName: selectedElement.username)
     }
     
     

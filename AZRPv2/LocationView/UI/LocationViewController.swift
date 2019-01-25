@@ -7,28 +7,34 @@
 //
 
 import UIKit
+import MapKit
 
 class LocationViewController: UIViewController {
 
-    
+    let mapView: MKMapView = {
+       let view = MKMapView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.mapType = MKMapType.standard
+        return view
+    }()
     
     var viewModel: LocationViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setupView()
         // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupView(){
+        mapView.addAnnotation(viewModel.annotation)
+        mapView.setRegion(viewModel.region, animated: true)
+        view.addSubview(mapView)
+        mapView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    */
 
 }

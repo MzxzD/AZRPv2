@@ -12,5 +12,5 @@ import UIKit
 protocol ChatCoordinatorDelegate: class {
     func presentImagePicker(imagePicker: UIImagePickerController)
     func openImageView(url: String, name: String)
-    func openNavigationView(longitude: Double, latitude: Double)
+    func openNavigationView(coordinates: Coordinates, userName: String)
 }
