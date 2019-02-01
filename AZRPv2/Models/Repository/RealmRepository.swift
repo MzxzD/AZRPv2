@@ -8,8 +8,9 @@
 
 import Foundation
 import Realm
-import RealmSwift
 import RxSwift
+import RealmSwift
+
 
 class RealmSerivce {
     var realm = try! Realm()

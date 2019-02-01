@@ -8,7 +8,6 @@
 
 import Foundation
 import Realm
-import RealmSwift
 
 struct RoomMessages {
 //    @objc dynamic var roomID: Int = 0

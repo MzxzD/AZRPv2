@@ -11,7 +11,6 @@
 
 import Foundation
 import Realm
-import RealmSwift
 
 //struct MessageObject: Codable {
 //    var type: String

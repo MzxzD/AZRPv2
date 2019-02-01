@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 import Starscream
-import RealmSwift
+import Realm
 
 class HomeViewModel: HomeViewModelProtocol {
     var coordinatorDelegate: HomeCoordinatorDelegate?
