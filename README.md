@@ -16,7 +16,9 @@
 ## Usage
 The splash screen is displayed at the start of the application.
 
-![alt text](https://i.imgur.com/dLTYmTt.png)
+<img src="https://i.imgur.com/dLTYmTt.png" alt="SplashScreen" width="60" height="200">
+
+
 
 Then a screen appears where the user asks for a login or a registration.
 
