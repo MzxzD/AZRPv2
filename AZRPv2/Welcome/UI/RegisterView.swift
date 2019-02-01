@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
+
 class RegistrationView: UIView {
+    var registerViewModel: RegisterViewModel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +39,6 @@ class RegistrationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.red
         label.font = UIFont(name: "HelveticaNeue", size: CGFloat(10))
-         label.text = "STILL IN IMPLEMENTATION"
         return label
     }()
     
@@ -56,7 +57,6 @@ class RegistrationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.red
         label.font = UIFont(name: "HelveticaNeue", size: CGFloat(10))
-        label.text = "STILL IN IMPLEMENTATION"
         return label
     }()
     
@@ -66,6 +66,7 @@ class RegistrationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Register", for: .normal)
         button.setTitleColor(UIColor.blue, for: .normal)
+        button.addTarget(self, action: #selector(atemptToRegister), for: .touchUpInside)
         return button
         
     }()
@@ -89,6 +90,49 @@ class RegistrationView: UIView {
             
         }
     }
+    
+    @objc func atemptToRegister() {
+        
+        if usernameTextField.text == .empty {
+            self.usernameTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 0, revert: true)
+            self.usernameErrorLabel.text = "Empty username field"
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.usernameErrorLabel.text = .empty
+                
+            }
+        }
+        
+        if passwordTextField.text == .empty {
+            self.passwordTextField.isError(baseColor: UIColor.red.cgColor, numberOfShakes: 0, revert: true)
+            self.passwordErrorLabel.text = "Empty password field"
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.passwordErrorLabel.text = .empty
+            }
+        }
+        if (passwordTextField.text?.count)! < 6 {
+            self.passwordErrorLabel.text = "Password has to have 6 characters"
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.passwordErrorLabel.text = .empty
+            }
+        }
+        
+        if usernameTextField.text != .empty && passwordTextField.text != .empty {
+            registerViewModel.doesUserAlreadyExists(registerName: usernameTextField.text!, completion: { [unowned self] user in
+                 if user.exists {
+                    self.usernameErrorLabel.text = "User allready exists"
+                    print("User exists")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.usernameErrorLabel.text = .empty
+                    }
+                }else {
+                    self.registerViewModel.startRegister(username: self.usernameTextField.text!, password: self.passwordTextField.text!)
+                }
+            })
+            }
+        }
     
     private func setupUI() {
         self.backgroundColor = UIColor.white

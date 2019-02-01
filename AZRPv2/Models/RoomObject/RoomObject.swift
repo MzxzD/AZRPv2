@@ -7,27 +7,39 @@
 //
 
 import Foundation
-
+import Realm
+import RealmSwift
 
 struct RoomMessages {
-    var roomObject: RoomObject?
+//    @objc dynamic var roomID: Int = 0
+    var roomObject: RoomObject
     var messages: [MessageObject]
+    
+//    override static func primaryKey() -> String? {
+//        return "roomID"
+//    }
+    
 
 }
 
+
 struct RoomObject: Codable {
-    let type: String
-    let attr: RoomAttr
+    var type: String
+    var attr: RoomAttr
+    
+  
+    
 }
 
 struct RoomAttr: Codable {
-    let object, name: String
-    let id: Int
-    let time: Double
-    let sender: String
-    let senderID: Int
-    let senderUnique: String
-    let participants: [Int]
+    var object: String
+    var name: String
+    var id: Int
+    var time: Double
+    var sender: String
+    var senderID: Int
+    var senderUnique: String
+    var participants: [Int]
     
     enum CodingKeys: String, CodingKey {
         case object, name, id, time, sender
@@ -35,4 +47,18 @@ struct RoomAttr: Codable {
         case senderUnique = "sender_unique"
         case participants
     }
+    
+}
+
+
+
+struct RoomParsed: Codable {
+    let type: String
+    let attr: ParsedAttr
+}
+
+struct ParsedAttr: Codable {
+    let object, name: String
+    let id: Int
+    let time: Double
 }

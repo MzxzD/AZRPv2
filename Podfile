@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 def shared_pods
   pod 'Alamofire'
+  pod 'AlamofireImage'
   pod 'Kingfisher'
   pod 'RxSwift'
   pod 'RxCocoa'
@@ -9,6 +10,9 @@ def shared_pods
   pod 'Socket.IO-Client-Swift', '~> 13.3.0'
   pod 'Starscream'
   pod 'SocketIO'
+  pod 'RealmSwift'
+  pod 'IQKeyboardManager'
+
   #pod 'R.swift','~> 5.0.0.alpha'
   #pod 'BaseKit', :git => 'http://git.plavatvornica.com/factory/iosbasekit.git'
  

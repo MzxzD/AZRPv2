@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-     private var appCoordinator: AppCoordinator!
+    private var appCoordinator: AppCoordinator!
+    public var socketController: WebSocketController!
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,7 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         let appCoordinator = AppCoordinator(window: window)
         self.window = window
+        IQKeyboardManager.shared().isEnabled = true
+        UIApplication.shared.isStatusBarHidden = false
+        application.statusBarStyle = .lightContent 
         self.appCoordinator = appCoordinator
+        self.socketController = WebSocketController.shared
    //     Theme.shared.applyTheme()
         appCoordinator.start()
         return true

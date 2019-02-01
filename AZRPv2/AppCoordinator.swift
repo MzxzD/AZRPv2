@@ -18,7 +18,13 @@ class AppCoordinator: Coordinator{
     init(window: UIWindow) {
         self.window = window
         presenter = UINavigationController()
-        
+        presenter.navigationBar.backgroundColor = UIColor(red: 63/255, green: 81/255, blue: 181/255, alpha: 1)
+        presenter.navigationBar.barTintColor = UIColor(red: 63/255, green: 81/255, blue: 181/255, alpha: 1)
+        presenter.navigationBar.tintColor = .white
+        presenter.navigationItem.backBarButtonItem?.tintColor = .white
+        presenter.navigationItem.leftBarButtonItem?.tintColor = .white
+        presenter.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+      
     }
     
     func start() {
@@ -30,6 +36,7 @@ class AppCoordinator: Coordinator{
             let homeCoordinator = HomeCoordinator(presenter: presenter)
             addChildCoordinator(childCoordinator: homeCoordinator)
             homeCoordinator.start()
+            
         } else {
             let loginCoordinator = LoginCoordinator(presenter: presenter)
             addChildCoordinator(childCoordinator: loginCoordinator)

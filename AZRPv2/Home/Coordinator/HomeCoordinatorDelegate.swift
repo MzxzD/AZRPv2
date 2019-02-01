@@ -9,5 +9,6 @@
 import Foundation
 
 protocol HomeCoordinatorDelegate: CoordinatorDelegate {
-    func openChatScreen()
+    func openChatScreen(roomID: Int)
+    func presentNewRoomScreen()
 }

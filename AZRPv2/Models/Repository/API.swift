@@ -17,7 +17,7 @@ class APIService {
     func fetchDataFromApI(username: String, pass: String) -> Observable<DataWrapper<LogIn>>{
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/login/"
+        let url = ServerAdress().adress+"api/auth/login/"
         
         return RxAlamofire
             .request(.post, url, parameters: ["username": username, "password": pass], encoding: URLEncoding.default , headers: nil)
@@ -48,7 +48,7 @@ class APIService {
     func getUsers(token: String) -> Observable<DataWrapper<Users>> {
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/users/?token="+token
+        let url = ServerAdress().adress+"api/auth/users/?token="+token
         
         return RxAlamofire
             .data(.get, url)
@@ -73,7 +73,7 @@ class APIService {
     func getUsers(token: String, searchQuerry: String) -> Observable<DataWrapper<Users>>{
         print("Downloading data...")
         
-        let url = "http://0.0.0.0:8000/api/auth/users/?token="+token+"&q="+searchQuerry
+        let url = ServerAdress().adress+"api/auth/users/?token="+token+"&q="+searchQuerry
         
         return RxAlamofire
             .data(.get, url)
@@ -93,6 +93,34 @@ class APIService {
                 return DataWrapper(data:APIResponse, error: nil)
             })
     }
+    
+    
+    func doesUserAlreadyExists(username: String) -> Observable<DataWrapper<Exists>> {
+        let url = ServerAdress().adress+"api/auth/user-exists/?username="+username
+        
+        return RxAlamofire
+            .data(.get, url)
+            .map({ (response) -> DataWrapper<Exists> in
+                let decoder = JSONDecoder()
+                print(response)
+                var APIResponse: Exists!
+                let responseJSON = response
+                do {
+                    let data = try decoder.decode(Exists.self, from: responseJSON)
+                    APIResponse = data
+                }catch let error {
+                    print(error.localizedDescription)
+                    return DataWrapper(data: APIResponse, error: error.localizedDescription)
+                }
+                
+                return DataWrapper(data: APIResponse, error: nil)
+            })
+    }
+    
 }
 
 
+struct Exists: Codable {
+    let username: String
+    let exists: Bool
+}

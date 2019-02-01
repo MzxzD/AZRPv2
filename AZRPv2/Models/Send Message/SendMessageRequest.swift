@@ -29,7 +29,7 @@ struct SendMessageRequest: Codable {
 }
 
 struct Attr: Codable {
-    var object, senderUnique, content: String
+    var object, senderUnique, content: String?
     var file: Int?
     var room: Int
     var location: Location?
@@ -49,5 +49,5 @@ struct Attr: Codable {
 }
 
 struct Location: Codable {
-    let latitude, longitude: Double
+    var latitude, longitude: Double
 }

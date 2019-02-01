@@ -43,6 +43,7 @@ class LoginViewModel {
                     let item = NSManagedObject(entity: entity, insertInto: managedContext)
                     item.setValue(downloadedData.data?.token, forKey: "token")
                     item.setValue(downloadedData.data?.user.name, forKey: "username")
+                    item.setValue(downloadedData.data?.user.id, forKey: "id")
                     
                     do {
                         try managedContext.save()

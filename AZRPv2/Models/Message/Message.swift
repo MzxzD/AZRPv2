@@ -10,6 +10,63 @@
 //   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
+import Realm
+import RealmSwift
+
+//struct MessageObject: Codable {
+//    var type: String
+//    var attr: Attributes
+//    
+//}
+//
+//struct Attributes: Codable {
+//    let object: String
+//    let content: String
+//    let messageID: Int
+//    let time: Double
+//    let sender: String
+//    let senderID: Int
+//    let senderUnique: String
+//    let roomParticipants: [Int]
+//    let room: Int
+//    let roomName: String
+//    let location: MessageLocation?
+//    let file: File?
+//    
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case object, content,file
+//        case messageID = "message_id"
+//        case time, sender
+//        case senderID = "sender_id"
+//        case senderUnique = "sender_unique"
+//        case roomParticipants = "room_participants"
+//        case room
+//        case roomName = "room_name"
+//        case location
+//    }
+//}
+//
+//struct File: Codable {
+//    let name, hash: String
+//    let url: String
+//}
+//
+//struct MessageLocation: Codable {
+//    let latitude, longitude: Double
+//}
+//
+//
+
+
+
+
+
+
+
+
+
+
 
 struct MessageObject: Codable {
     let type: String
@@ -17,8 +74,7 @@ struct MessageObject: Codable {
 }
 
 struct Attributes: Codable {
-    let object: String
-    let content: String
+    let object, content: String
     let messageID: Int
     let time: Double
     let sender: String
@@ -27,10 +83,9 @@ struct Attributes: Codable {
     let roomParticipants: [Int]
     let room: Int
     let roomName: String
-    let location: MessageLocation
-    let file: File
-
-
+    let location: MessageLocation?
+    let file: File?
+    
     enum CodingKeys: String, CodingKey {
         case object, content,file
         case messageID = "message_id"
@@ -45,9 +100,7 @@ struct Attributes: Codable {
 }
 
 struct File: Codable {
-    // hash here is fileHashValue in CoreData
-    let name, hash: String
-    let url: String
+    let hash, name: String
 }
 
 struct MessageLocation: Codable {

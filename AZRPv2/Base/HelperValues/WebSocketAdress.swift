@@ -10,4 +10,11 @@ import Foundation
 
 class WebSocketAdress {
     let adress = "ws://0.0.0.0:8000/"
+//    let adress = "ws://192.168.0.103:8000/"
+}
+class ServerAdress {
+    let adress = "http://0.0.0.0:8000/"
+    let adressWithoutPort = "http://0.0.0.0:"
+//    let adressWithoutPort = "http://192.168.0.103:"
+//    let adress = "http://192.168.0.103:8000/"
 }
