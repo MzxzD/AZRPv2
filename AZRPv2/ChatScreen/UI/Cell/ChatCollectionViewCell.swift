@@ -59,8 +59,9 @@ class ChatCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor.clear
-//        button.setTitle(" yeeey", for: .normal)
         button.contentHorizontalAlignment = .left
+        button.titleLabel?.tintColor = UIColor.black
+        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: CGFloat(10))
         button.layer.borderColor = UIColor.clear.cgColor
         button.isHidden = true
@@ -108,6 +109,7 @@ class ChatCollectionViewCell: UICollectionViewCell {
             userNameLabel.textColor = UIColor.white
             timeLabel.textColor = UIColor.white
             imageButton.titleLabel?.textColor = UIColor.white
+            imageButton.setTitleColor(.white, for: .normal)
             MessageLabel.textAlignment = .right
 //            userNameLabel.textAlignment = .right
 //            locationButton.semanticContentAttribute = .forceRightToLeft

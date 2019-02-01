@@ -16,7 +16,7 @@ class ImageViewController: UIViewController, LoaderViewProtocol {
     
     let imageView :UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleAspectFit
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
