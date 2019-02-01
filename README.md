@@ -16,7 +16,7 @@
 ## Usage
 The splash screen is displayed at the start of the application.
 
-<img src="https://i.imgur.com/dLTYmTt.png" alt="SplashScreen" width="60" height="200">
+<img src="https://i.imgur.com/dLTYmTt.png" alt="SplashScreen" width="310" height="532">
 
 
 
