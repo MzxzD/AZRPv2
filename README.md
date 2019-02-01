@@ -87,9 +87,6 @@ Here is a list of all your existing rooms (Rooms), since this is the first regis
 
 When creating a room, you need to write the name of the room (located under Name), and add the people you want to communicate with. Under Paricipants, there is a textField that you fill in and when you add, the "balloon" of the selected user appears. If you want to add more users, continue writing (text input indicator). When you are satisfied with the one you want to create, you can press the Create button located at the top right corner. If you want to stop creating a room, then Cancel from the top left. By adding Create, a new room is created and returns to the main screen with a newly created room. If you cancel the Cancel, just go back to the main screen without a new room.
 
-
-<img src="https://i.imgur.com/kSK4vM7.png" alt="SplashScreen" width="310" height="532">
-
 After the successful creation of the room you will see the first room on the screen of the room.
 
 <img src="https://i.imgur.com/15sxPCq.png" alt="SplashScreen" width="310" height="532">
