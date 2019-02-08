@@ -47,7 +47,7 @@ class WelcomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func initializeAutentificationObserver() {
+    func initializeLoginAutentificationObserver() {
         let authObserver = loginView.loginViewModel.authTrigger
         authObserver
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
@@ -58,6 +58,21 @@ class WelcomeViewController: UIViewController {
                 }
             })
         .disposed(by: disposeBag)
+        
+   
+        
+    }
+    func initializeRegisterAutentificationObserver() {
+        let registerAuthObserver = registerView.registerViewModel.authTrigger
+        registerAuthObserver
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (event) in
+                if event {
+                    self.welcomeViewModel.openHomeScreen()
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupUI() {
@@ -116,7 +131,7 @@ class WelcomeViewController: UIViewController {
             }
             .bind(to: loginView.usernameErrorLabel.rx.text)
             .disposed(by: disposeBag)
-        initializeAutentificationObserver()
+        initializeLoginAutentificationObserver()
         loginView.alpha = 0
 //        loginButton.fadeOut()
 //        registerButton.fadeOut()
@@ -146,6 +161,7 @@ class WelcomeViewController: UIViewController {
             .bind(to: registerView.usernameErrorLabel.rx.text)
             .disposed(by: disposeBag)
         registerView.alpha = 0
+        initializeRegisterAutentificationObserver()
         //        loginButton.fadeOut()
         //        registerButton.fadeOut()
         //        loginButton.removeFromSuperview()

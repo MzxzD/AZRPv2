@@ -36,7 +36,7 @@ class RegisterViewModel {
 //        .map { (arg0) -> Exists in
 //            let (data, _) = arg0
 //            user = data
-//            return Exists()
+//            return user
 //        }
 //
 //        return user
@@ -44,7 +44,7 @@ class RegisterViewModel {
     
     func getDataFromApi() -> Disposable {
         let downloadObserverTrigger = downloadTrigger.flatMap { (_) -> Observable<DataWrapper<LogIn>> in
-            return APIService().fetchDataFromApI(username: self.username, pass: self.pass)
+            return APIService().registerUser(username: self.username, pass: self.pass)
         }
         
         return downloadObserverTrigger
@@ -66,12 +66,13 @@ class RegisterViewModel {
                     }catch let error as NSError {
                         print("Error:",error)
                     }
-                    // Trigger to open HOME SCREEN!
                     self.authTrigger.onNext(true)
+
                     
                     
                 } else {
                     self.error.onNext(downloadedData.error!)
+
                 }
             })
     }
